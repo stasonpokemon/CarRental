@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class OrderService {
-    private final OrderDaoImpl orderDaoImpl = OrderDaoImpl.getOrderDaoImpl();
+    private final OrderDaoImpl orderDaoImpl = OrderDaoImpl.getOrderDao();
 
     private static OrderService orderService;
 
@@ -52,13 +52,23 @@ public class OrderService {
      * Создание нового заказа
      * */
     public void addOrder(Order order) {
-        int maxOrderId = orderDaoImpl.getMaxOrderId();
-        if (maxOrderId != 0){
+        Integer maxOrderId = orderDaoImpl.getMaxOrderId();
+        System.out.println("MAX_ORDER_ID"  + maxOrderId);
+        if (maxOrderId != null){
             order.setId(maxOrderId + 1);
+            if (order.getRefund() == null){
+                orderDaoImpl.create(order);
+            }else {
+                orderDaoImpl.createWithRefund(order);
+            }
         }else {
             order.setId(1);
+            if (order.getRefund() == null){
+                orderDaoImpl.create(order);
+            }else {
+                orderDaoImpl.createWithRefund(order);
+            }
         }
-        orderDaoImpl.create(order);
     }
 
     public void update(Order order) {

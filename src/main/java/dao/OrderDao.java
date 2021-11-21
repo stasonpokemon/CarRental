@@ -5,12 +5,16 @@ import pojo.Order;
 
 import java.util.List;
 
-public interface OrderDao extends Dao<Order>{
-
+public interface OrderDao extends Dao<Order> {
 
     /*
-    * Обновления заказа, который отклонён либо пока без возврата
-    * */
+     * Добавление заказа в бд с возвратом
+     * */
+    Integer createWithRefund(Order order);
+
+    /*
+     * Обновления заказа, который отклонён либо пока без возврата
+     * */
     void updateWithoutRefund(Order order);
 
 
@@ -25,7 +29,7 @@ public interface OrderDao extends Dao<Order>{
     List<Order> findOrdersByStatus(String status);
 
     /*
-    * Получение максимального id из всех заказов
-    * */
-    int getMaxOrderId();
+     * Получение максимального id из всех заказов
+     * */
+    Integer getMaxOrderId();
 }

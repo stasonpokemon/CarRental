@@ -6,10 +6,10 @@ public class AdminMenu {
 
     private static final String MAIN_MENU = "Меню администратора:\n" +
             "1. Новый заказ\n" +
-            "2. Регистрация заказа\n" +
+            "2. Регистрация возврата заказа\n" +
             "3. Список всех заказов\n" +
-            "4. Экспортировать все заказы в JSON файл\n" +
-            "5. Имортировать данные о заказах в бд\n" +
+            "4. Экспортировать(Сериализация) все заказы в JSON файл\n" +
+            "5. Имортировать(Дисериализация) данные о заказах в бд\n" +
             "6. Выход";
     private static final String NO_OPERATION = "Не существует введённой вами операции, попробуйте ещё раз...";
     private static final String EXIT = "Выход...";
@@ -41,8 +41,10 @@ public class AdminMenu {
                     MenuOfAllOrders.getMenu().allOrders();
                     break;
                 case 4:
+                    SerializeOrdersToJsonMenu.getMenu().exportToJson();
                     break;
                 case 5:
+                    DeserializeOrdersFromJsonMenu.getMenu().parseJson();
                     break;
                 case 6:
                     exit = true;

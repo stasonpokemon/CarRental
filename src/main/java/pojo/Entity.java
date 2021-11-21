@@ -6,8 +6,6 @@ import java.util.Objects;
 
 public abstract class Entity {
 
-// Expose - аннотация, которая позволяет игнорировать или не игнорировать поле при сериализации
-    @Expose(serialize = false)
     private Integer id;
 
     public Integer getId() {

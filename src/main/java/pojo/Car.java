@@ -3,9 +3,7 @@ package pojo;
 import com.google.gson.annotations.Expose;
 
 public class Car extends Entity {
-    @Expose(serialize = true)
     private String name;
-    @Expose(serialize = true)
     private String state;
 
     public String getName() {

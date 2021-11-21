@@ -1,23 +1,19 @@
 package pojo;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Order extends Entity{
-        @Expose(serialize = true)
         private double price;
-        @Expose(serialize = true)
         private String state;
-        @Expose(serialize = true)
         private Timestamp date;
-        @Expose(serialize = true)
         private int time;
-        @Expose(serialize = true)
         private Car car;
-        @Expose(serialize = true)
         private Client client;
-        @Expose(serialize = true)
+        @SerializedName("returned")
         private Refund refund;
 
         public double getPrice() {
@@ -78,10 +74,11 @@ public class Order extends Entity{
 
         @Override
         public String toString() {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX");
                 return "Order{" +
                         "price=" + price +
                         ", state='" + state + '\'' +
-                        ", date=" + date +
+                        ", date=" + format.format(date) +
                         ", time=" + time +
                         ", car=" + car +
                         ", client=" + client +

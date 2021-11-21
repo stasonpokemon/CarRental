@@ -1,48 +1,34 @@
 [
   {
-    "price": 350.0,
+    "price": 2350.0,
     "state": "DECLINED",
     "date": "Nov 17, 2021 11:16:45 PM",
-    "time": 5,
+    "time": 17,
     "car": {
-      "name": "Audi RS6",
+      "name": "VOLVO V80",
       "state": "WITHOUT_DAMAGE"
     },
     "client": {
-      "name": "Stanislav Trebnikov",
-      "address": "Vitebsk Stroitelei 22k6 86"
+      "name": "Anton Griboedov",
+      "address": "Moskov"
     }
   },
   {
-    "price": 250.0,
+    "price": 1450.0,
     "state": "APPROVED",
     "date": "Nov 17, 2021 11:16:45 PM",
-    "time": 2,
+    "time": 7,
     "car": {
-      "name": "BMW M3",
+      "name": "Nissan GTR S",
       "state": "WITHOUT_DAMAGE"
     },
     "client": {
-      "name": "Egor Trebnikov",
-      "address": "Vitebsk Stroitelei 22k6 86"
+      "name": "Peter Chex",
+      "address": "Germany"
     },
-    "refund": {
+    "returned": {
       "state": "WITHOUT_DAMAGE",
       "price": 0.0
-    }
-  },
-  {
-    "price": 1200.0,
-    "state": "APPROVED",
-    "date": "Nov 18, 2021 12:25:45 AM",
-    "time": 12,
-    "car": {
-      "name": "Audi TT RS",
-      "state": "WITHOUT_DAMAGE"
-    },
-    "client": {
-      "name": "Egor Trebnikov",
-      "address": "Vitebsk Stroitelei 22k6 86"
     }
   }
 ]
