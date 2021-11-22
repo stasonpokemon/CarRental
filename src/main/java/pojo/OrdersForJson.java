@@ -11,15 +11,20 @@ public class OrdersForJson {
 
     private static OrdersForJson ordersForJson;
 
-    public static OrdersForJson getOrdersForJson(List<Order> orderList) {
-        if (ordersForJson == null){
+    public static OrdersForJson getOrdersForJson() {
+        if (ordersForJson == null) {
             ordersForJson = new OrdersForJson();
-            ordersForJson.addAllOrders(orderList);
         }
         return ordersForJson;
     }
 
-    public void addAllOrders(List<Order> orderList){
+    public OrdersForJson createOrdersForJson(List<Order> orderList) {
+        orders.clear();
+        addAllOrders(orderList);
+        return ordersForJson;
+    }
+
+    public void addAllOrders(List<Order> orderList) {
         orders.addAll(orderList);
     }
 

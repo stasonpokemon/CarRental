@@ -8,6 +8,7 @@ import menu.serializers.ClientSerializer;
 import menu.serializers.OrderSerializer;
 import menu.serializers.RefundSerializer;
 import pojo.*;
+import services.OrderService;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,19 +33,17 @@ public class SerializeOrdersToJsonMenu {
     public void exportToJson() {
         System.out.println(ENTER_PATH);
         String path = scanner.next();
+        //            Создаём объект заказов и передаём в него заказы из бд
+        OrdersForJson orders = OrdersForJson.getOrdersForJson().createOrdersForJson(OrderService.getOrderService().findAllOrders());
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Order.class, new OrderSerializer())
+                .registerTypeAdapter(Car.class, new CarSerializer())
+                .registerTypeAdapter(Client.class, new ClientSerializer())
+                .registerTypeAdapter(Refund.class, new RefundSerializer())
+                .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX")
+                .create();
         try (Writer writer = new FileWriter(path)) {
-            //            Создаём объект заказов и передаём в него заказы из бд
-            OrdersForJson orders = OrdersForJson.getOrdersForJson(OrderDaoImpl.getOrderDao().readAll());
-
-            Gson gson = new GsonBuilder()
-//            .registerTypeAdapter(OrdersForJson.class, new OrdersForJsonSerializer())
-                    .registerTypeAdapter(Order.class, new OrderSerializer())
-                    .registerTypeAdapter(Car.class, new CarSerializer())
-                    .registerTypeAdapter(Client.class, new ClientSerializer())
-                    .registerTypeAdapter(Refund.class, new RefundSerializer())
-                    .setPrettyPrinting()
-                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX")
-                    .create();
             gson.toJson(orders, writer);
             System.out.println(LOAD_IS_COMPLETE);
         } catch (IOException e) {

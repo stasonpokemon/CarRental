@@ -6,13 +6,44 @@ import pojo.OrdersForJson;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
         final AdminMenu adminMenu = AdminMenu.getAdminMenu();
         adminMenu.menu();
+
+
+//        String a = "a";
+//        String b = "b";
+//        String c = "c";
+//        String d = "d";
+//        String e = "e";
+//        String f = "f";
+//        String g = "g";
+//        String k = "k";
+//
+//        List<String> stringList = new ArrayList<>();
+//        stringList.add(a);
+//        stringList.add(b);
+//        stringList.add(c);
+//        stringList.add(d);
+//
+//        List<String> stringList2 = new ArrayList<>();
+//        stringList2.add(e);
+//        stringList2.add(f);
+//        stringList2.add(g);
+//        stringList2.add(k);
+//
+//
+//        stringList.addAll(stringList2);
+//        stringList.forEach(System.out::println);
+//        System.out.println();
+//        stringList.addAll(stringList2);
+//        stringList.forEach(System.out::println);
 
 
 

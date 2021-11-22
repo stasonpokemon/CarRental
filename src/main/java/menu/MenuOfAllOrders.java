@@ -27,7 +27,6 @@ public class MenuOfAllOrders {
         do {
             operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, GO_BACK);
             if (operationNumber == 1) {
-
                 exit = true;
             } else {
                 System.out.println(NO_OPERATION);

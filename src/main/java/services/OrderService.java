@@ -55,7 +55,6 @@ public class OrderService {
      * */
     public void addOrder(Order order) {
         Integer maxOrderId = orderDaoImpl.getMaxOrderId();
-        System.out.println("MAX_ORDER_ID"  + maxOrderId);
         if (maxOrderId != null){
             order.setId(maxOrderId + 1);
             if (order.getRefund() == null){

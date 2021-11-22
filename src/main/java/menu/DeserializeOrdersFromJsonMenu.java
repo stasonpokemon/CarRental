@@ -53,7 +53,6 @@ public class DeserializeOrdersFromJsonMenu {
             for (JsonElement element : asJsonArray) {
                 final JsonObject asJsonObject1 = element.getAsJsonObject();
                 final Order order = gson.fromJson(asJsonObject1, Order.class);
-
 //                Проверка на уникальность заказа
                 boolean orderUniqValid = true;
                 for (Order orderByDb : OrderService.getOrderService().findAllOrders()) {

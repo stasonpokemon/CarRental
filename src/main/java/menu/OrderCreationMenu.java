@@ -59,8 +59,6 @@ public class OrderCreationMenu {
         double carPricePerDay = scanner.nextDouble();
 //        Стоимость заказа рассчитывается из указанной стоимости автомобиля за сутки и срока аренды
         double orderPrice = carPricePerDay * rentalPeriod;
-
-
         do {
             operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, ORDER_CONFIRMATION);
             switch (operationNumber) {
@@ -106,8 +104,5 @@ public class OrderCreationMenu {
                     break;
             }
         } while (!exit);
-
-
     }
-
 }

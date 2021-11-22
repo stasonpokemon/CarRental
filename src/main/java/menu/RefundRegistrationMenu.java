@@ -49,7 +49,6 @@ public class RefundRegistrationMenu {
                 } else {
                     System.out.println(NO_OPERATION);
                 }
-
             } while (!exit);
         } else {
             do {
@@ -62,6 +61,7 @@ public class RefundRegistrationMenu {
                 switch (operationNumber) {
                     case 1:
                         registration();
+                        exit = true;
                         break;
                     case 2:
                         exit = true;
