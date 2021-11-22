@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import pojo.Order;
+import utils.ParseOrderTime;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -19,8 +20,7 @@ public class OrderSerializer implements JsonSerializer<Order> {
         result.addProperty("price",serializePrice);
         result.addProperty("state",order.getState());
         result.addProperty("date", format.format(order.getDate()));
-//        Отредактировать time как в тз
-        result.addProperty("time",order.getTime());
+        result.addProperty("time", ParseOrderTime.parseTimeToJson(order.getTime()));
         result.add("car", jsonSerializationContext.serialize(order.getCar()));
         result.add("client", jsonSerializationContext.serialize(order.getClient()));
         result.add("returned", jsonSerializationContext.serialize(order.getRefund()));

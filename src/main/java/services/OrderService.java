@@ -34,6 +34,14 @@ public class OrderService {
     }
 
     /*
+     * Список одобренных заказов без возврата
+     * */
+    public List<Order> findApprovedOrdersWithoutRefund(){
+        return orderDaoImpl.readApprovedOrdersWithoutRefund();
+    }
+
+
+    /*
      * Список заказов определённого клиента
      * */
     public List<Order> findAllOrdersByClient(Client client) {
@@ -41,12 +49,6 @@ public class OrderService {
     }
 
 
-    /*
-     * Список заказов с определённым статусом
-     * */
-    public List<Order> findOrdersByStatus(String state) {
-        return orderDaoImpl.findOrdersByStatus(state);
-    }
 
     /*
      * Создание нового заказа

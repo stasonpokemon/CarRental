@@ -53,7 +53,23 @@ public class DeserializeOrdersFromJsonMenu {
             for (JsonElement element : asJsonArray) {
                 final JsonObject asJsonObject1 = element.getAsJsonObject();
                 final Order order = gson.fromJson(asJsonObject1, Order.class);
-                OrderService.getOrderService().addOrder(order);
+
+//                Проверка на уникальность заказа
+                boolean orderUniqValid = true;
+                for (Order orderByDb : OrderService.getOrderService().findAllOrders()) {
+                    if (order.getPrice() == orderByDb.getPrice()
+                            && order.getState().equals(orderByDb.getState())
+                            && order.getDate().equals(orderByDb.getDate())
+                            && order.getTime() == orderByDb.getTime()
+                            && order.getCar().getName().equals(orderByDb.getCar().getName())
+                            && order.getClient().getName().equals(orderByDb.getClient().getName())) {
+                        orderUniqValid = false;
+                    }
+                }
+//                Если заказ не повторяется в бд, то происходит добавление
+                if (orderUniqValid) {
+                    OrderService.getOrderService().addOrder(order);
+                }
             }
             System.out.println(LOAD_IS_COMPLETE);
         } catch (FileNotFoundException e) {

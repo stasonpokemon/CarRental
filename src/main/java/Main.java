@@ -14,6 +14,10 @@ public class Main {
         final AdminMenu adminMenu = AdminMenu.getAdminMenu();
         adminMenu.menu();
 
+
+
+
+
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX");
 //        String dateStr = "2019-04-22T13:07:31 +03:00";
 //        Timestamp timestamp = null;
@@ -37,9 +41,6 @@ public class Main {
 //        String newStr = str.replace("$", "");
 //        double d = Double.parseDouble(newStr);
 //        System.out.println(d);
-
-
-
 
 
 //        ImportOrdersFromJsonMenu.getMenu().parseJson().forEach(System.out::println);

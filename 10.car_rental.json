@@ -2,7 +2,7 @@
   "orders": [
     {
       "order": {
-        "price": 257.41,
+        "price": "$257.41",
         "state": "Approved",
         "date": "2019-04-22T07:07:31 -03:00",
         "time": 5,
@@ -22,7 +22,7 @@
     },
     {
       "order": {
-        "price": 706.61,
+        "price": "$706.61",
         "state": "Approved",
         "date": "2015-01-06T11:47:51 -03:00",
         "time": 1,

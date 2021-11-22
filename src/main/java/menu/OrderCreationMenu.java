@@ -13,14 +13,17 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class OrderCreationMenu {
-    public static final String ORDER_CONFIRMATION = "Подтверждение заказа:\n" +
+    private static final String ORDER_CONFIRMATION = "Подтверждение заказа:\n" +
             "1. Одобрить\n" +
             "2. Отклонить";
-
-    public static final String ORDER_APPROVED = "Заказ принят...";
-    public static final String ORDER_DECLINED = "Заказ отклонён...";
+    private static final String ENTER_CAR_NAME = "Укажите название выбранного автомобиля:";
+    private static final String ENTER_CLIENT_NAME = "Укажите имя и фамилию клиента:";
+    private static final String ENTER_CLIENT_ADDRESS = "Укажите адрес клиента:";
+    private static final String ENTER_RENTAL_PERIOD = "Введите срок арнеды:";
+    private static final String ORDER_APPROVED = "Заказ принят...";
+    private static final String ORDER_DECLINED = "Заказ отклонён...";
     private static final String NO_OPERATION = "Не существует введённой вами операции, попробуйте ещё раз...";
-
+    private static final String ENTER_CAR_PRICE = "Введите стоимость автомобиля за сутки:";
 
 
     private static OrderCreationMenu menu;
@@ -35,17 +38,6 @@ public class OrderCreationMenu {
     }
 
     public void creatingAnOrder() {
-        /*
-         * 1. Выбор авто из списка доступных (Введите авто, которое выбрал клиент)
-         * 2. Клиент указывает Имя, Фамилию и адрес (Введите данные клиента)
-         * 3. Клиент указывает срок аренды (Введите срок аренды автомобиля)
-         * 4. (Введите стоимость автомобиля за сутки) или (Ввеите стоимость заказа)
-         * 5. (Подтвердить / Отколнить)
-         *
-         * -------- информация о заказе
-         * (1. Вернуться назад)
-         * */
-
         boolean exit = false;
         Order order = new Order();
         Car car = new Car();
@@ -53,17 +45,17 @@ public class OrderCreationMenu {
 
 
 //        -Клиент выбирает автомобиль
-        System.out.println("Укажите название выбранного автомобиля:");
+        System.out.println(ENTER_CAR_NAME);
         String carName = scanner.nextLine();
 //        -Клиент называет имя, фамилию и адрес
-        System.out.println("Укажите имя и фамилию клиента:");
+        System.out.println(ENTER_CLIENT_NAME);
         String clientName = scanner.nextLine();
-        System.out.println("Укажите адрес клиента:");
+        System.out.println(ENTER_CLIENT_ADDRESS);
         String clientAddress = scanner.nextLine();
 //        -Клиент указывает срок аренды
-        System.out.println("Введите срок арнеды:");
+        System.out.println(ENTER_RENTAL_PERIOD);
         int rentalPeriod = scanner.nextInt();
-        System.out.println("Введите стоимость автомобиля за сутки:");
+        System.out.println(ENTER_CAR_PRICE);
         double carPricePerDay = scanner.nextDouble();
 //        Стоимость заказа рассчитывается из указанной стоимости автомобиля за сутки и срока аренды
         double orderPrice = carPricePerDay * rentalPeriod;
@@ -100,8 +92,6 @@ public class OrderCreationMenu {
                     client.setAddress(clientAddress);
                     ClientService.getService().addClient(client);
 
-//                    Цену не указываем, потому что в json файле не требуется
-//                    order.setPrice(orderPrice);
                     order.setState("Declined");
                     order.setDate(new Timestamp(new GregorianCalendar().getTimeInMillis()));
                     order.setTime(rentalPeriod);

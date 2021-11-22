@@ -130,7 +130,22 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
 
     @Override
     public void update(Order order) {
-
+        String sql = "UPDATE orders SET  price = ?, state = ?, date = ?, time = ?, car_id = ?, client_id = ?, refund_id = ?  WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setDouble(1, order.getPrice());
+            statement.setString(2, order.getState());
+            statement.setTimestamp(3, order.getDate());
+            statement.setInt(4, order.getTime());
+            statement.setInt(5, order.getCar().getId());
+            statement.setInt(6, order.getClient().getId());
+            statement.setInt(7, order.getRefund().getId());
+            statement.setInt(8, order.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -224,6 +239,76 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return orders;
     }
 
+    /*
+     * Список одобренных заказов без возврата
+     * */
+    @Override
+    public List<Order> readApprovedOrdersWithoutRefund() {
+        String sqlOrder = "SELECT id, price, state, date, time, car_id, client_id, refund_id FROM orders WHERE state LIKE 'Approved' AND refund_id IS NULL";
+        String sqlCar = "SELECT id, name, state FROM cars WHERE id = ?";
+        String sqlClient = "SELECT id, name, address FROM clients WHERE id = ?";
+        List<Order> orders = new ArrayList<>();
+
+        PreparedStatement statementOrder = null;
+        PreparedStatement statementClient = null;
+        PreparedStatement statementCar = null;
+
+        ResultSet resultSetOrder = null;
+        ResultSet resultSetClient = null;
+        ResultSet resultSetCar = null;
+
+        Order order = null;
+        Client client = null;
+        Car car = null;
+
+        try {
+            statementOrder = connection.prepareStatement(sqlOrder);
+            statementClient = connection.prepareStatement(sqlClient);
+            statementCar = connection.prepareStatement(sqlCar);
+
+            resultSetOrder = statementOrder.executeQuery();
+            while (resultSetOrder.next()) {
+                order = new Order();
+                order.setId(resultSetOrder.getInt("id"));
+                order.setPrice(resultSetOrder.getDouble("price"));
+                order.setState(resultSetOrder.getString("state"));
+                order.setDate(resultSetOrder.getTimestamp("date"));
+                order.setTime(resultSetOrder.getInt("time"));
+
+                final int carId = resultSetOrder.getInt("car_id");
+                statementCar.setInt(1, carId);
+                resultSetCar = statementCar.executeQuery();
+                if (!resultSetOrder.wasNull()) {
+                    if (resultSetCar.next()) {
+                        car = new Car();
+                        car.setId(resultSetCar.getInt("id"));
+                        car.setName(resultSetCar.getString("name"));
+                        car.setState(resultSetCar.getString("state"));
+                    }
+                    order.setCar(car);
+                }
+
+                final int client_id = resultSetOrder.getInt("client_id");
+                statementClient.setInt(1, client_id);
+                resultSetClient = statementClient.executeQuery();
+                if (!resultSetOrder.wasNull()) {
+                    if (resultSetClient.next()) {
+                        client = new Client();
+                        client.setId(resultSetClient.getInt("id"));
+                        client.setName(resultSetClient.getString("name"));
+                        client.setAddress(resultSetClient.getString("address"));
+                    }
+                    order.setClient(client);
+                }
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
+    }
+
 
     @Override
     public void updateWithoutRefund(Order order) {
@@ -235,10 +320,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return null;
     }
 
-    @Override
-    public List<Order> findOrdersByStatus(String status) {
-        return null;
-    }
+
 
     @Override
     public Integer getMaxOrderId() {

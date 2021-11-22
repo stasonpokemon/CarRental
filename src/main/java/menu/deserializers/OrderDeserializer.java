@@ -5,6 +5,7 @@ import pojo.Car;
 import pojo.Client;
 import pojo.Order;
 import pojo.Refund;
+import utils.ParseOrderTime;
 
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
@@ -27,7 +28,7 @@ public class OrderDeserializer implements JsonDeserializer<Order> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        order.setTime(asJsonObject.get("time").getAsInt());
+        order.setTime(ParseOrderTime.parseTimeFromJson(asJsonObject.get("time").getAsString()));
         order.setCar(jsonDeserializationContext.deserialize(asJsonObject.get("car"), Car.class));
         order.setClient(jsonDeserializationContext.deserialize(asJsonObject.get("client"), Client.class));
         order.setRefund(jsonDeserializationContext.deserialize(asJsonObject.get("returned"), Refund.class));

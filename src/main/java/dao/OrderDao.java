@@ -26,7 +26,7 @@ public interface OrderDao extends Dao<Order> {
     /*
      * Список заказов с определённым статусом
      * */
-    List<Order> findOrdersByStatus(String status);
+    List<Order> readApprovedOrdersWithoutRefund();
 
     /*
      * Получение максимального id из всех заказов
