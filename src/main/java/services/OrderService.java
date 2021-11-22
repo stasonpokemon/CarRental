@@ -77,8 +77,4 @@ public class OrderService {
         orderDaoImpl.update(order);
     }
 
-    public void updateWithoutRefund(Order order) {
-        orderDaoImpl.updateWithoutRefund(order);
-    }
-
 }
