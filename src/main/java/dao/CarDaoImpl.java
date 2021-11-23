@@ -7,19 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CarDaoImpl extends BaseDaoImpl implements CarDao{
+public class CarDaoImpl extends BaseDaoImpl implements CarDao {
     private static CarDaoImpl carDao;
 
-    protected CarDaoImpl() throws SQLException {
+    private CarDaoImpl() throws SQLException {
     }
 
-    public static CarDaoImpl getCarDao()  {
-        if (carDao == null){
-            try {
-                carDao = new CarDaoImpl();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public static CarDaoImpl getInstance() throws SQLException {
+        if (carDao == null) {
+            carDao = new CarDaoImpl();
         }
         return carDao;
     }
@@ -48,7 +44,7 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao{
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(sql);
-            statement.setInt(1,car.getId());
+            statement.setInt(1, car.getId());
             statement.setString(2, car.getName());
             statement.setString(3, car.getState());
             statement.executeUpdate();

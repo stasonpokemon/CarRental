@@ -3,6 +3,8 @@ package services;
 import dao.ClientDaoImpl;
 import pojo.Client;
 
+import java.sql.SQLException;
+
 public class ClientService {
     private static ClientService service;
 
@@ -17,13 +19,17 @@ public class ClientService {
      * Регистрация нового клиента
      * */
     public Integer addClient(Client client) {
-        int maxUserId = ClientDaoImpl.getClientDao().getMaxClientId();
-        if (maxUserId != 0) {
-            client.setId(maxUserId + 1);
-        } else {
-            client.setId(1);
+        try {
+            int maxUserId = ClientDaoImpl.getInstance().getMaxClientId();
+            if (maxUserId != 0) {
+                client.setId(maxUserId + 1);
+            } else {
+                client.setId(1);
+            }
+            ClientDaoImpl.getInstance().create(client);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        ClientDaoImpl.getClientDao().create(client);
         return client.getId();
     }
 }

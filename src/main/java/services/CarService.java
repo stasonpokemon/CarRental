@@ -1,7 +1,10 @@
 package services;
 
 import dao.CarDaoImpl;
+import exceptions.NoConnectionJDBCException;
 import pojo.Car;
+
+import java.sql.SQLException;
 
 public class CarService {
     private static CarService service;
@@ -16,15 +19,19 @@ public class CarService {
     /*
      * Добавление нового автомобиля
      * */
-    public Integer addNewCar(Car car) {
-        int maxCarId = CarDaoImpl.getCarDao().getMaxCarId();
-        if (maxCarId != 0){
-            car.setId(maxCarId + 1);
-        }else {
-            car.setId(1);
+    public Integer addNewCar(Car car) throws NoConnectionJDBCException {
+        try {
+            int maxCarId = CarDaoImpl.getInstance().getMaxCarId();
+            if (maxCarId != 0){
+                car.setId(maxCarId + 1);
+            }else {
+                car.setId(1);
+            }
+            CarDaoImpl.getInstance().create(car);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new NoConnectionJDBCException("Нет подключения к бд");
         }
-        CarDaoImpl.getCarDao().create(car);
-
         return car.getId();
     }
 }

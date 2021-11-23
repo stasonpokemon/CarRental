@@ -11,8 +11,7 @@ public class JDBCConnector {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "admin";
 
-    // Используем шаблон одиночка, чтобы не плодить множество
-    // экземпляров класса JDBCConnector
+    // Используем шаблон одиночка, чтобы не плодить множество экземпляров класса JDBCConnector
     private static JDBCConnector instance = null;
 
     public static JDBCConnector getInstance() throws SQLException {
@@ -21,6 +20,7 @@ public class JDBCConnector {
         }
         return instance;
     }
+
     // Объект, в котором будет храниться соединение с БД
     private final Connection connection;
 
@@ -34,5 +34,9 @@ public class JDBCConnector {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public void connectionClose() throws SQLException {
+        connection.close();
     }
 }

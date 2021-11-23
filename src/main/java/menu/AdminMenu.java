@@ -2,9 +2,12 @@ package menu;
 
 import menu.jsonParseMenu.DeserializeOrdersFromJsonMenu;
 import menu.jsonParseMenu.SerializeOrdersToJsonMenu;
+import utils.JDBCConnector;
 import utils.NumberValidUtil;
 
-public class AdminMenu extends Menu{
+import java.sql.SQLException;
+
+public class AdminMenu extends Menu {
 
     private static final String MAIN_MENU = "Меню администратора:\n" +
             "1. Новый заказ\n" +
@@ -21,15 +24,14 @@ public class AdminMenu extends Menu{
 
     private static AdminMenu adminMenu;
 
+    private AdminMenu() {
+    }
+
     public static AdminMenu getInstance() {
         if (adminMenu == null) {
             adminMenu = new AdminMenu();
         }
         return adminMenu;
-    }
-
-    public void menu() {
-
     }
 
     @Override
@@ -56,6 +58,13 @@ public class AdminMenu extends Menu{
                     break;
                 case 6:
                     exit = true;
+                    menu = null;
+//                    Закрываем connection
+                    try {
+                        JDBCConnector.getInstance().connectionClose();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(EXIT);
                     break;
                 default:
@@ -63,7 +72,9 @@ public class AdminMenu extends Menu{
                     break;
             }
 //            Механизм позднего(динамического) связывания
-            menu.getMenu();
+            if (menu != null) {
+                menu.getMenu();
+            }
 
         } while (!exit);
     }

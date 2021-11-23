@@ -2,6 +2,7 @@ package menu.jsonParseMenu;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import exceptions.NoConnectionJDBCException;
 import menu.Menu;
 import menu.jsonParseMenu.serializers.CarSerializer;
 import menu.jsonParseMenu.serializers.ClientSerializer;
@@ -23,6 +24,9 @@ public class SerializeOrdersToJsonMenu extends Menu {
     private static SerializeOrdersToJsonMenu menu;
     private final Scanner scanner = new Scanner(System.in);
 
+    private SerializeOrdersToJsonMenu() {
+    }
+
     public static SerializeOrdersToJsonMenu getInstance() {
         if (menu == null) {
             menu = new SerializeOrdersToJsonMenu();
@@ -32,25 +36,29 @@ public class SerializeOrdersToJsonMenu extends Menu {
 
     @Override
     public void getMenu() {
-        System.out.println(ENTER_PATH);
-        String path = scanner.next();
-        //            Создаём объект заказов и передаём в него заказы из бд
-        OrdersForJson orders = OrdersForJson.getOrdersForJson();
-        orders.createOrdersForJson(OrderService.getOrderService().findAllOrders());
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Order.class, new OrderSerializer())
-                .registerTypeAdapter(Car.class, new CarSerializer())
-                .registerTypeAdapter(Client.class, new ClientSerializer())
-                .registerTypeAdapter(Refund.class, new RefundSerializer())
-                .setPrettyPrinting()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX")
-                .create();
-        try (Writer writer = new FileWriter(path)) {
-            gson.toJson(orders, writer);
-            System.out.println(LOAD_IS_COMPLETE);
-        } catch (IOException e) {
+        try {
+            System.out.println(ENTER_PATH);
+            String path = scanner.next();
+            //            Создаём объект заказов и передаём в него заказы из бд
+            OrdersForJson orders = OrdersForJson.getOrdersForJson();
+            orders.createOrdersForJson(OrderService.getOrderService().findAllOrders());
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Order.class, new OrderSerializer())
+                    .registerTypeAdapter(Car.class, new CarSerializer())
+                    .registerTypeAdapter(Client.class, new ClientSerializer())
+                    .registerTypeAdapter(Refund.class, new RefundSerializer())
+                    .setPrettyPrinting()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX")
+                    .create();
+            try (Writer writer = new FileWriter(path)) {
+                gson.toJson(orders, writer);
+                System.out.println(LOAD_IS_COMPLETE);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(FAILED_TO_LOAD);
+            }
+        } catch (NoConnectionJDBCException e) {
             e.printStackTrace();
-            System.out.println(FAILED_TO_LOAD);
         }
     }
 }

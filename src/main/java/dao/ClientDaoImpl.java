@@ -10,16 +10,12 @@ import java.util.List;
 public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
     private static ClientDaoImpl clientDao;
 
-    protected ClientDaoImpl() throws SQLException {
+    private ClientDaoImpl() throws SQLException {
     }
 
-    public static ClientDaoImpl getClientDao() {
+    public static ClientDaoImpl getInstance() throws SQLException {
         if (clientDao == null) {
-            try {
                 clientDao = new ClientDaoImpl();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return clientDao;
     }

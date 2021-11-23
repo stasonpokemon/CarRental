@@ -1,5 +1,6 @@
 package menu;
 
+import exceptions.NoConnectionJDBCException;
 import pojo.Order;
 import pojo.Refund;
 import services.OrderService;
@@ -32,6 +33,9 @@ public class RefundRegistrationMenu extends Menu {
 
     private static RefundRegistrationMenu menu;
 
+    private RefundRegistrationMenu() {
+    }
+
     public static RefundRegistrationMenu getInstance() {
         if (menu == null) {
             menu = new RefundRegistrationMenu();
@@ -42,42 +46,45 @@ public class RefundRegistrationMenu extends Menu {
 
     @Override
     public void getMenu() {
-        boolean exit = false;
-        if (OrderService.getOrderService().findApprovedOrdersWithoutRefund().size() == 0) {
-            do {
-                operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, NO_ORDER);
-                if (operationNumber == 1) {
-                    exit = true;
-                } else {
-                    System.out.println(NO_OPERATION);
-                }
-            } while (!exit);
-        } else {
-            do {
-                final List<Order> approvedOrdersWithoutRefund = OrderService.getOrderService().findApprovedOrdersWithoutRefund();
-                for (Order order : approvedOrdersWithoutRefund) {
-                    System.out.println(ORDER_NUMBER + " - " + order.getId() + ": " + order);
-                }
-
-                operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, REFUND_MENU);
-                switch (operationNumber) {
-                    case 1:
-                        registration();
+        try {
+            boolean exit = false;
+            if (OrderService.getOrderService().findApprovedOrdersWithoutRefund().size() == 0) {
+                do {
+                    operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, NO_ORDER);
+                    if (operationNumber == 1) {
                         exit = true;
-                        break;
-                    case 2:
-                        exit = true;
-                        System.out.println(EXIT);
-                        break;
-                    default:
+                    } else {
                         System.out.println(NO_OPERATION);
-                        break;
-                }
-            } while (!exit);
+                    }
+                } while (!exit);
+            } else {
+                do {
+                    final List<Order> approvedOrdersWithoutRefund = OrderService.getOrderService().findApprovedOrdersWithoutRefund();
+                    for (Order order : approvedOrdersWithoutRefund) {
+                        System.out.println(ORDER_NUMBER + " - " + order.getId() + ": " + order);
+                    }
+                    operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, REFUND_MENU);
+                    switch (operationNumber) {
+                        case 1:
+                            registration();
+                            exit = true;
+                            break;
+                        case 2:
+                            exit = true;
+                            System.out.println(EXIT);
+                            break;
+                        default:
+                            System.out.println(NO_OPERATION);
+                            break;
+                    }
+                } while (!exit);
+            }
+        } catch (NoConnectionJDBCException e) {
+            e.printStackTrace();
         }
     }
 
-    private void registration() {
+    private void registration() throws NoConnectionJDBCException {
         Order order = new Order();
         Refund refund;
         boolean exit = false;
@@ -99,7 +106,7 @@ public class RefundRegistrationMenu extends Menu {
                     case 1:
                         refund = new Refund();
                         refund.setState("Without Damage");
-                        RefundService.getService().addNewRefund(refund);
+                        RefundService.getInstance().addNewRefund(refund);
                         order.setRefund(refund);
                         OrderService.getOrderService().update(order);
                         System.out.println(REFUND_REGISTERED);
@@ -114,7 +121,7 @@ public class RefundRegistrationMenu extends Menu {
                         double price = 0;
                         price = NumberValidUtil.getOperationNumberUtil().doubleNumberValid(price, ENTER_REFUND_PRICE);
                         refund.setPrice(price);
-                        RefundService.getService().addNewRefund(refund);
+                        RefundService.getInstance().addNewRefund(refund);
                         order.setRefund(refund);
                         OrderService.getOrderService().update(order);
                         System.out.println(REFUND_REGISTERED);

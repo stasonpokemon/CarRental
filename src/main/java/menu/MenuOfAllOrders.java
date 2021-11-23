@@ -1,5 +1,6 @@
 package menu;
 
+import exceptions.NoConnectionJDBCException;
 import pojo.Order;
 import services.OrderService;
 import utils.NumberValidUtil;
@@ -17,6 +18,9 @@ public class MenuOfAllOrders extends Menu {
     private static int operationNumber;
     private static MenuOfAllOrders menu;
 
+    private MenuOfAllOrders() {
+    }
+
     public static MenuOfAllOrders getInstance() {
         if (menu == null) {
             menu = new MenuOfAllOrders();
@@ -26,14 +30,15 @@ public class MenuOfAllOrders extends Menu {
 
     @Override
     public void getMenu() {
-        boolean exit = false;
-        System.out.println(LIST_OF_ORDERS);
-        final List<Order> allOrders = OrderService.getOrderService().findAllOrders();
-        if (allOrders.size() > 0){
-            allOrders.forEach(System.out::println);
-        }else {
-            System.out.println(NO_ORDERS);
-        }
+        try {
+            boolean exit = false;
+            System.out.println(LIST_OF_ORDERS);
+            final List<Order> allOrders = OrderService.getOrderService().findAllOrders();
+            if (allOrders.size() > 0) {
+                allOrders.forEach(System.out::println);
+            } else {
+                System.out.println(NO_ORDERS);
+            }
             do {
                 operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, GO_BACK);
                 if (operationNumber == 1) {
@@ -42,5 +47,8 @@ public class MenuOfAllOrders extends Menu {
                     System.out.println(NO_OPERATION);
                 }
             } while (!exit);
+        } catch (NoConnectionJDBCException e) {
+            e.printStackTrace();
+        }
     }
 }

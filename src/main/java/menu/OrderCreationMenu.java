@@ -1,5 +1,6 @@
 package menu;
 
+import exceptions.NoConnectionJDBCException;
 import pojo.Car;
 import pojo.Client;
 import pojo.Order;
@@ -29,6 +30,9 @@ public class OrderCreationMenu extends Menu {
     private static OrderCreationMenu menu;
     private final Scanner scanner = new Scanner(System.in);
     private int operationNumber;
+
+    private OrderCreationMenu() {
+    }
 
     public static OrderCreationMenu getInstance() {
         if (menu == null) {
@@ -65,41 +69,49 @@ public class OrderCreationMenu extends Menu {
             operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, ORDER_CONFIRMATION);
             switch (operationNumber) {
                 case 1:
-                    car.setName(carName);
-                    car.setState("WITHOUT_DAMAGE");
-                    CarService.getService().addNewCar(car);
+                    try {
+                        car.setName(carName);
+                        car.setState("WITHOUT_DAMAGE");
+                        CarService.getService().addNewCar(car);
 
-                    client.setName(clientName);
-                    client.setAddress(clientAddress);
-                    ClientService.getService().addClient(client);
+                        client.setName(clientName);
+                        client.setAddress(clientAddress);
+                        ClientService.getService().addClient(client);
 
-                    order.setPrice(orderPrice);
-                    order.setState("Approved");
-                    order.setDate(new Timestamp(new GregorianCalendar().getTimeInMillis()));
-                    order.setTime(rentalPeriod);
-                    order.setCar(car);
-                    order.setClient(client);
-                    OrderService.getOrderService().addOrder(order);
+                        order.setPrice(orderPrice);
+                        order.setState("Approved");
+                        order.setDate(new Timestamp(new GregorianCalendar().getTimeInMillis()));
+                        order.setTime(rentalPeriod);
+                        order.setCar(car);
+                        order.setClient(client);
+                        OrderService.getOrderService().addOrder(order);
+                        System.out.println(ORDER_APPROVED);
+                    } catch (NoConnectionJDBCException e) {
+                        e.printStackTrace();
+                    }
                     exit = true;
-                    System.out.println(ORDER_APPROVED);
                     break;
                 case 2:
-                    car.setName(carName);
-                    car.setState("WITHOUT_DAMAGE");
-                    CarService.getService().addNewCar(car);
+                    try {
+                        car.setName(carName);
+                        car.setState("WITHOUT_DAMAGE");
+                        CarService.getService().addNewCar(car);
 
-                    client.setName(clientName);
-                    client.setAddress(clientAddress);
-                    ClientService.getService().addClient(client);
+                        client.setName(clientName);
+                        client.setAddress(clientAddress);
+                        ClientService.getService().addClient(client);
 
-                    order.setState("Declined");
-                    order.setDate(new Timestamp(new GregorianCalendar().getTimeInMillis()));
-                    order.setTime(rentalPeriod);
-                    order.setCar(car);
-                    order.setClient(client);
-                    OrderService.getOrderService().addOrder(order);
+                        order.setState("Declined");
+                        order.setDate(new Timestamp(new GregorianCalendar().getTimeInMillis()));
+                        order.setTime(rentalPeriod);
+                        order.setCar(car);
+                        order.setClient(client);
+                        OrderService.getOrderService().addOrder(order);
+                        System.out.println(ORDER_DECLINED);
+                    } catch (NoConnectionJDBCException e) {
+                        e.printStackTrace();
+                    }
                     exit = true;
-                    System.out.println(ORDER_DECLINED);
                     break;
                 default:
                     System.out.println(NO_OPERATION);

@@ -20,14 +20,10 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
     public OrderDaoImpl() throws SQLException {
     }
 
-    public static OrderDaoImpl getOrderDao() {
+    public static OrderDaoImpl getInstance() throws SQLException {
         if (orderDao == null) {
-            try {
                 orderDao = new OrderDaoImpl();
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-        }
         return orderDao;
     }
 
@@ -43,27 +39,27 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
             statement.setString(3, order.getState());
             statement.setTimestamp(4, order.getDate());
             statement.setInt(5, order.getTime());
-            if (order.getCar().getId() == null) {
-                Car newCar = new Car();
-                newCar.setName(order.getCar().getName());
-                newCar.setState(order.getCar().getState());
-//                Добавить авто в бд с новым id
-                Integer carId = CarService.getService().addNewCar(newCar);
-                statement.setInt(6, newCar.getId());
-            } else {
+//            if (order.getCar().getId() == null) {
+//                Car newCar = new Car();
+//                newCar.setName(order.getCar().getName());
+//                newCar.setState(order.getCar().getState());
+////                Добавить авто в бд с новым id
+//                Integer carId = CarService.getService().addNewCar(newCar);
+//                statement.setInt(6, newCar.getId());
+//            } else {
                 statement.setInt(6, order.getCar().getId());
-            }
+//            }
 
-            if (order.getClient().getId() == null) {
-                Client newClient = new Client();
-                newClient.setName(order.getClient().getName());
-                newClient.setAddress(order.getClient().getAddress());
-//                Добавить клиента в бд с новым id
-                final Integer clientId = ClientService.getService().addClient(newClient);
-                statement.setInt(7, clientId);
-            } else {
+//            if (order.getClient().getId() == null) {
+//                Client newClient = new Client();
+//                newClient.setName(order.getClient().getName());
+//                newClient.setAddress(order.getClient().getAddress());
+////                Добавить клиента в бд с новым id
+//                final Integer clientId = ClientService.getService().addClient(newClient);
+//                statement.setInt(7, clientId);
+//            } else {
                 statement.setInt(7, order.getClient().getId());
-            }
+//            }
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,39 +79,39 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
             statement.setString(3, order.getState());
             statement.setTimestamp(4, order.getDate());
             statement.setInt(5, order.getTime());
-            if (order.getCar().getId() == null) {
-                Car newCar = new Car();
-                newCar.setName(order.getCar().getName());
-                newCar.setState(order.getCar().getState());
-//                Добавить авто в бд с новым id
-                final Integer carId = CarService.getService().addNewCar(newCar);
-                statement.setInt(6, carId);
-            } else {
+//            if (order.getCar().getId() == null) {
+//                Car newCar = new Car();
+//                newCar.setName(order.getCar().getName());
+//                newCar.setState(order.getCar().getState());
+////                Добавить авто в бд с новым id
+//                final Integer carId = CarService.getService().addNewCar(newCar);
+//                statement.setInt(6, carId);
+//            } else {
                 statement.setInt(6, order.getCar().getId());
-            }
+//            }
 
-            if (order.getClient().getId() == null) {
-                Client newClient = new Client();
-                newClient.setName(order.getClient().getName());
-                newClient.setAddress(order.getClient().getAddress());
-//                Добавить клиента в бд с новым id
-                final Integer clientId = ClientService.getService().addClient(newClient);
-                statement.setInt(7, clientId);
-            } else {
+//            if (order.getClient().getId() == null) {
+//                Client newClient = new Client();
+//                newClient.setName(order.getClient().getName());
+//                newClient.setAddress(order.getClient().getAddress());
+////                Добавить клиента в бд с новым id
+//                final Integer clientId = ClientService.getService().addClient(newClient);
+//                statement.setInt(7, clientId);
+//            } else {
                 statement.setInt(7, order.getClient().getId());
-            }
+//            }
 
-            if (order.getRefund().getId() == null) {
-                Refund newRefund = new Refund();
-                newRefund.setDetail(order.getRefund().getDetail());
-                newRefund.setState(order.getRefund().getState());
-                newRefund.setPrice(order.getRefund().getPrice());
-//                Добавит заказ в бд с новым id
-                final Integer refundId = RefundService.getService().addNewRefund(newRefund);
-                statement.setInt(8, refundId);
-            } else {
+//            if (order.getRefund().getId() == null) {
+//                Refund newRefund = new Refund();
+//                newRefund.setDetail(order.getRefund().getDetail());
+//                newRefund.setState(order.getRefund().getState());
+//                newRefund.setPrice(order.getRefund().getPrice());
+////                Добавит заказ в бд с новым id
+//                final Integer refundId = RefundService.getInstance().addNewRefund(newRefund);
+//                statement.setInt(8, refundId);
+//            } else {
                 statement.setInt(8, order.getRefund().getId());
-            }
+//            }
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

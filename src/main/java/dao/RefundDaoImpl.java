@@ -11,16 +11,12 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
 
     private static RefundDaoImpl refundDao;
 
-    protected RefundDaoImpl() throws SQLException {
+    private RefundDaoImpl() throws SQLException {
     }
 
-    public static RefundDaoImpl getRefundDao() {
+    public static RefundDaoImpl getInstance() throws SQLException {
         if (refundDao == null) {
-            try {
                 refundDao = new RefundDaoImpl();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return refundDao;
     }
