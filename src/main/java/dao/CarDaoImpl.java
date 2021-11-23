@@ -13,7 +13,7 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao{
     protected CarDaoImpl() throws SQLException {
     }
 
-    public static CarDaoImpl getCarDao() {
+    public static CarDaoImpl getCarDao()  {
         if (carDao == null){
             try {
                 carDao = new CarDaoImpl();
@@ -58,23 +58,4 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao{
         return car.getId();
     }
 
-    @Override
-    public Car read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Car car) {
-
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public List<Car> readAll() {
-        return null;
-    }
 }

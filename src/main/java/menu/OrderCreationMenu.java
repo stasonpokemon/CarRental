@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class OrderCreationMenu {
+public class OrderCreationMenu extends Menu {
     private static final String ORDER_CONFIRMATION = "Подтверждение заказа:\n" +
             "1. Одобрить\n" +
             "2. Отклонить";
@@ -30,14 +30,16 @@ public class OrderCreationMenu {
     private final Scanner scanner = new Scanner(System.in);
     private int operationNumber;
 
-    public static OrderCreationMenu getMenu() {
+    public static OrderCreationMenu getInstance() {
         if (menu == null) {
             menu = new OrderCreationMenu();
         }
         return menu;
     }
 
-    public void creatingAnOrder() {
+
+    @Override
+    public void getMenu() {
         boolean exit = false;
         Order order = new Order();
         Car car = new Car();

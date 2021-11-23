@@ -124,36 +124,6 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Order order) {
-        String sql = "UPDATE orders SET  price = ?, state = ?, date = ?, time = ?, car_id = ?, client_id = ?, refund_id = ?  WHERE id = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(sql);
-            statement.setDouble(1, order.getPrice());
-            statement.setString(2, order.getState());
-            statement.setTimestamp(3, order.getDate());
-            statement.setInt(4, order.getTime());
-            statement.setInt(5, order.getCar().getId());
-            statement.setInt(6, order.getClient().getId());
-            statement.setInt(7, order.getRefund().getId());
-            statement.setInt(8, order.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
     public List<Order> readAll() {
         String sqlOrder = "SELECT id, price, state, date, time, car_id, client_id, refund_id FROM orders";
         String sqlCar = "SELECT id, name, state FROM cars WHERE id = ?";
@@ -309,25 +279,32 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return orders;
     }
 
-
     @Override
-    public void updateWithoutRefund(Order order) {
-
+    public void update(Order order) {
+        String sql = "UPDATE orders SET  price = ?, state = ?, date = ?, time = ?, car_id = ?, client_id = ?, refund_id = ?  WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setDouble(1, order.getPrice());
+            statement.setString(2, order.getState());
+            statement.setTimestamp(3, order.getDate());
+            statement.setInt(4, order.getTime());
+            statement.setInt(5, order.getCar().getId());
+            statement.setInt(6, order.getClient().getId());
+            statement.setInt(7, order.getRefund().getId());
+            statement.setInt(8, order.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
-    @Override
-    public List<Order> findAllOrdersByClient(Client user) {
-        return null;
-    }
-
-
 
     @Override
     public Integer getMaxOrderId() {
         String sql = "SELECT MAX(id) FROM orders";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-            Integer id = 0;
+        Integer id = 0;
         try {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
@@ -340,4 +317,5 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
 
         return id;
     }
+
 }

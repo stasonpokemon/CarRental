@@ -1,20 +1,11 @@
-import com.google.gson.Gson;
-import dao.OrderDaoImpl;
 import menu.AdminMenu;
-import pojo.OrdersForJson;
-
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import menu.Menu;
 
 public class Main {
     public static void main(String[] args) {
 
-        final AdminMenu adminMenu = AdminMenu.getAdminMenu();
-        adminMenu.menu();
+        final Menu adminMenu = AdminMenu.getInstance();
+        adminMenu.getMenu();
 
 
 //        String a = "a";

@@ -1,4 +1,4 @@
-package menu.serializers;
+package menu.jsonParseMenu.serializers;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

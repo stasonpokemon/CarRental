@@ -1,8 +1,10 @@
 package menu;
 
+import menu.jsonParseMenu.DeserializeOrdersFromJsonMenu;
+import menu.jsonParseMenu.SerializeOrdersToJsonMenu;
 import utils.NumberValidUtil;
 
-public class AdminMenu {
+public class AdminMenu extends Menu{
 
     private static final String MAIN_MENU = "Меню администратора:\n" +
             "1. Новый заказ\n" +
@@ -19,7 +21,7 @@ public class AdminMenu {
 
     private static AdminMenu adminMenu;
 
-    public static AdminMenu getAdminMenu() {
+    public static AdminMenu getInstance() {
         if (adminMenu == null) {
             adminMenu = new AdminMenu();
         }
@@ -27,24 +29,30 @@ public class AdminMenu {
     }
 
     public void menu() {
+
+    }
+
+    @Override
+    public void getMenu() {
+        Menu menu = null;
         boolean exit = false;
         do {
             operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, MAIN_MENU);
             switch (operationNumber) {
                 case 1:
-                    OrderCreationMenu.getMenu().creatingAnOrder();
+                    menu = OrderCreationMenu.getInstance();
                     break;
                 case 2:
-                    RefundRegistrationMenu.getMenu().refundRegistration();
+                    menu = RefundRegistrationMenu.getInstance();
                     break;
                 case 3:
-                    MenuOfAllOrders.getMenu().allOrders();
+                    menu = MenuOfAllOrders.getInstance();
                     break;
                 case 4:
-                    SerializeOrdersToJsonMenu.getMenu().exportToJson();
+                    menu = SerializeOrdersToJsonMenu.getInstance();
                     break;
                 case 5:
-                    DeserializeOrdersFromJsonMenu.getMenu().parseJson();
+                    menu = DeserializeOrdersFromJsonMenu.getInstance();
                     break;
                 case 6:
                     exit = true;
@@ -54,6 +62,8 @@ public class AdminMenu {
                     System.out.println(NO_OPERATION);
                     break;
             }
+//            Механизм позднего(динамического) связывания
+            menu.getMenu();
 
         } while (!exit);
     }

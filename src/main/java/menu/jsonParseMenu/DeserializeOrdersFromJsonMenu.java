@@ -1,10 +1,11 @@
-package menu;
+package menu.jsonParseMenu;
 
 import com.google.gson.*;
-import menu.deserializers.CarDeserializer;
-import menu.deserializers.ClientDeserializer;
-import menu.deserializers.OrderDeserializer;
-import menu.deserializers.RefundDeserializer;
+import menu.Menu;
+import menu.jsonParseMenu.deserializers.CarDeserializer;
+import menu.jsonParseMenu.deserializers.ClientDeserializer;
+import menu.jsonParseMenu.deserializers.OrderDeserializer;
+import menu.jsonParseMenu.deserializers.RefundDeserializer;
 import pojo.Car;
 import pojo.Client;
 import pojo.Order;
@@ -18,7 +19,7 @@ import java.io.Reader;
 import java.util.Scanner;
 
 
-public class DeserializeOrdersFromJsonMenu {
+public class DeserializeOrdersFromJsonMenu extends Menu {
     public static final String ENTER_PATH = "Введите путь к файлу .json:";
     public static final String FAILED_TO_LOAD = "Не удается найти указанный json файл - ";
     public static final String LOAD_IS_COMPLETE = "Загрузка завершена...";
@@ -27,15 +28,15 @@ public class DeserializeOrdersFromJsonMenu {
     private static DeserializeOrdersFromJsonMenu menu;
     private final Scanner scanner = new Scanner(System.in);
 
-    public static DeserializeOrdersFromJsonMenu getMenu() {
+    public static DeserializeOrdersFromJsonMenu getInstance() {
         if (menu == null) {
             menu = new DeserializeOrdersFromJsonMenu();
         }
         return menu;
     }
 
-    //    Парсинг JSON из ТЗ
-    public void parseJson() {
+    @Override
+    public void getMenu() {
         System.out.println(ENTER_PATH);
         String path = scanner.next();
         Gson gson = new GsonBuilder()
@@ -78,6 +79,4 @@ public class DeserializeOrdersFromJsonMenu {
             e.printStackTrace();
         }
     }
-
-
 }

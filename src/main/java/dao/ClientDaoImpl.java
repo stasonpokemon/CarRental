@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
-   private static ClientDaoImpl clientDao;
+    private static ClientDaoImpl clientDao;
 
     protected ClientDaoImpl() throws SQLException {
     }
 
     public static ClientDaoImpl getClientDao() {
-        if (clientDao == null){
+        if (clientDao == null) {
             try {
                 clientDao = new ClientDaoImpl();
             } catch (SQLException e) {
@@ -38,26 +38,6 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
             e.printStackTrace();
         }
         return client.getId();
-    }
-
-    @Override
-    public Client read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Client client) {
-
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public List<Client> readAll() {
-        return null;
     }
 
     @Override

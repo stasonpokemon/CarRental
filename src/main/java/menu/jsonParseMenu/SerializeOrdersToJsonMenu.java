@@ -1,12 +1,12 @@
-package menu;
+package menu.jsonParseMenu;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dao.OrderDaoImpl;
-import menu.serializers.CarSerializer;
-import menu.serializers.ClientSerializer;
-import menu.serializers.OrderSerializer;
-import menu.serializers.RefundSerializer;
+import menu.Menu;
+import menu.jsonParseMenu.serializers.CarSerializer;
+import menu.jsonParseMenu.serializers.ClientSerializer;
+import menu.jsonParseMenu.serializers.OrderSerializer;
+import menu.jsonParseMenu.serializers.RefundSerializer;
 import pojo.*;
 import services.OrderService;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Scanner;
 
-public class SerializeOrdersToJsonMenu {
+public class SerializeOrdersToJsonMenu extends Menu {
     public static final String ENTER_PATH = "Введите путь к файлу .json:";
     public static final String FAILED_TO_LOAD = "Не удалось загрузить инормацию в json файл...";
     public static final String LOAD_IS_COMPLETE = "Загрузка завершена...";
@@ -23,18 +23,20 @@ public class SerializeOrdersToJsonMenu {
     private static SerializeOrdersToJsonMenu menu;
     private final Scanner scanner = new Scanner(System.in);
 
-    public static SerializeOrdersToJsonMenu getMenu() {
+    public static SerializeOrdersToJsonMenu getInstance() {
         if (menu == null) {
             menu = new SerializeOrdersToJsonMenu();
         }
         return menu;
     }
 
-    public void exportToJson() {
+    @Override
+    public void getMenu() {
         System.out.println(ENTER_PATH);
         String path = scanner.next();
         //            Создаём объект заказов и передаём в него заказы из бд
-        OrdersForJson orders = OrdersForJson.getOrdersForJson().createOrdersForJson(OrderService.getOrderService().findAllOrders());
+        OrdersForJson orders = OrdersForJson.getOrdersForJson();
+        orders.createOrdersForJson(OrderService.getOrderService().findAllOrders());
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Order.class, new OrderSerializer())
                 .registerTypeAdapter(Car.class, new CarSerializer())

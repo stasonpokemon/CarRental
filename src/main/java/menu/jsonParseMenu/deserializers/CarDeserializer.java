@@ -1,4 +1,4 @@
-package menu.deserializers;
+package menu.jsonParseMenu.deserializers;
 
 import com.google.gson.*;
 import pojo.Car;

@@ -9,7 +9,7 @@ import utils.NumberValidUtil;
 import java.util.List;
 import java.util.Scanner;
 
-public class RefundRegistrationMenu {
+public class RefundRegistrationMenu extends Menu {
 
     private static final String ORDER_NUMBER = "Номер заказа";
     private static final String REFUND_MENU = "1. Выбрать заказ для регистрации возврата:\n" +
@@ -32,14 +32,16 @@ public class RefundRegistrationMenu {
 
     private static RefundRegistrationMenu menu;
 
-    public static RefundRegistrationMenu getMenu() {
+    public static RefundRegistrationMenu getInstance() {
         if (menu == null) {
             menu = new RefundRegistrationMenu();
         }
         return menu;
     }
 
-    public void refundRegistration() {
+
+    @Override
+    public void getMenu() {
         boolean exit = false;
         if (OrderService.getOrderService().findApprovedOrdersWithoutRefund().size() == 0) {
             do {
@@ -73,7 +75,6 @@ public class RefundRegistrationMenu {
                 }
             } while (!exit);
         }
-
     }
 
     private void registration() {
@@ -129,4 +130,5 @@ public class RefundRegistrationMenu {
             }
         } while (!exit);
     }
+
 }

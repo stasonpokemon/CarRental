@@ -40,16 +40,6 @@ public class OrderService {
         return orderDaoImpl.readApprovedOrdersWithoutRefund();
     }
 
-
-    /*
-     * Список заказов определённого клиента
-     * */
-    public List<Order> findAllOrdersByClient(Client client) {
-        return orderDaoImpl.findAllOrdersByClient(client);
-    }
-
-
-
     /*
      * Создание нового заказа
      * */

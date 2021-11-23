@@ -70,108 +70,21 @@
       }
     },
     {
-      "price": "$1257.41",
+      "price": "$2080.0",
       "state": "Approved",
-      "date": "2021-09-21T13:07:31 +03:00",
-      "time": "5 days",
-      "car": {
-        "name": "MAZDA RX8",
-        "state": "Without Damage"
-      },
-      "client": {
-        "name": "Jhon Poll",
-        "address": "959 Grand Avenue, Chical, Massachusetts, 550"
-      },
-      "returned": {
-        "state": "Without Damage",
-        "price": 0.0
-      }
-    },
-    {
-      "price": "$2557.41",
-      "state": "Approved",
-      "date": "2021-10-21T13:07:31 +03:00",
-      "time": "2 weeks 3 days",
-      "car": {
-        "name": "Nissan GTR",
-        "state": "Without Damage"
-      },
-      "client": {
-        "name": "Maria Poll",
-        "address": "959 Grand Avenue, Chical, Massachusetts, 550"
-      },
-      "returned": {
-        "state": "Without Damage",
-        "price": 0.0
-      }
-    },
-    {
-      "price": "$1300.41",
-      "state": "Approved",
-      "date": "2021-12-21T13:07:31 +03:00",
-      "time": "1 week 2 days",
-      "car": {
-        "name": "Audi A7",
-        "state": "Without Damage"
-      },
-      "client": {
-        "name": "Tod Willyams",
-        "address": "959 Grand Avenue, Chical, Massachusetts, 550"
-      },
-      "returned": {
-        "state": "Broken",
-        "detail": "2 left windows ",
-        "price": 230.0
-      }
-    },
-    {
-      "price": "$120.0",
-      "state": "Approved",
-      "date": "2021-11-22T21:35:48 +03:00",
-      "time": "3 days",
-      "car": {
-        "name": "Nissan Note",
-        "state": "WITHOUT_DAMAGE"
-      },
-      "client": {
-        "name": "Trebnikov Egor",
-        "address": "Vitebsk Stroitelei 22k6 86"
-      },
-      "returned": {
-        "state": "Without Damage",
-        "price": 0.0
-      }
-    },
-    {
-      "price": "$112320.0",
-      "state": "Approved",
-      "date": "2021-11-22T21:35:48 +03:00",
-      "time": "4 days",
-      "car": {
-        "name": "Nissan RS",
-        "state": "WITHOUT_DAMAGE"
-      },
-      "client": {
-        "name": "Petrov Egor",
-        "address": "Vitebsk Stroitelei 22k6 86"
-      },
-      "returned": {
-        "state": "Without Damage",
-        "price": 0.0
-      }
-    },
-    {
-      "price": "$3250.0",
-      "state": "Approved",
-      "date": "2021-11-22T21:48:53 +03:00",
+      "date": "2021-11-22T23:15:57 +03:00",
       "time": "1 week 6 days",
       "car": {
-        "name": "Mercedes G63 AMG",
+        "name": "Nissan GTR",
         "state": "WITHOUT_DAMAGE"
       },
       "client": {
-        "name": "Victor Tankovich",
-        "address": "Vitebsk"
+        "name": "Pol Jons",
+        "address": "New-York"
+      },
+      "returned": {
+        "state": "Without Damage",
+        "price": 0.0
       }
     }
   ]

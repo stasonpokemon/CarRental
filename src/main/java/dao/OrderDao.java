@@ -13,18 +13,7 @@ public interface OrderDao extends Dao<Order> {
     Integer createWithRefund(Order order);
 
     /*
-     * Обновления заказа, который отклонён либо пока без возврата
-     * */
-    void updateWithoutRefund(Order order);
-
-
-    /*
-     * Список заказов определённого клиента
-     * */
-    List<Order> findAllOrdersByClient(Client user);
-
-    /*
-     * Список заказов с определённым статусом
+     * Список одобренных заказов без возврата
      * */
     List<Order> readApprovedOrdersWithoutRefund();
 
@@ -32,4 +21,10 @@ public interface OrderDao extends Dao<Order> {
      * Получение максимального id из всех заказов
      * */
     Integer getMaxOrderId();
+
+    void update(Order order);
+
+    List<Order> readAll();
+
+
 }

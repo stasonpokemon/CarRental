@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RefundDaoImpl extends BaseDaoImpl implements RefundDao{
+public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
 
     private static RefundDaoImpl refundDao;
 
@@ -15,7 +15,7 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao{
     }
 
     public static RefundDaoImpl getRefundDao() {
-        if (refundDao == null){
+        if (refundDao == null) {
             try {
                 refundDao = new RefundDaoImpl();
             } catch (SQLException e) {
@@ -43,26 +43,6 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao{
     }
 
     @Override
-    public Refund read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Refund refund) {
-
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public List<Refund> readAll() {
-        return null;
-    }
-
-    @Override
     public int getMaxRefundId() {
         String sql = "SELECT MAX(id) FROM refunds";
         PreparedStatement statement = null;
@@ -79,4 +59,11 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao{
         }
         return id;
     }
+
+
+
+
+
+
+
 }
