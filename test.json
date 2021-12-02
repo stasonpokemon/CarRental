@@ -86,38 +86,6 @@
         "state": "Without Damage",
         "price": 0.0
       }
-    },
-    {
-      "price": "$308.0",
-      "state": "Approved",
-      "date": "2021-11-24T01:30:19 +03:00",
-      "time": "3 weeks 1 day",
-      "car": {
-        "name": "test",
-        "state": "WITHOUT_DAMAGE"
-      },
-      "client": {
-        "name": "test",
-        "address": "test"
-      },
-      "returned": {
-        "state": "Without Damage",
-        "price": 0.0
-      }
-    },
-    {
-      "price": "$26199.0",
-      "state": "Approved",
-      "date": "2021-11-24T01:44:55 +03:00",
-      "time": "17 weeks 4 days",
-      "car": {
-        "name": "qwe",
-        "state": "WITHOUT_DAMAGE"
-      },
-      "client": {
-        "name": "qwe",
-        "address": "qwe"
-      }
     }
   ]
 }

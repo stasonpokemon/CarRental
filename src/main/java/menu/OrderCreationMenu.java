@@ -59,10 +59,10 @@ public class OrderCreationMenu extends Menu {
         System.out.println(ENTER_CLIENT_ADDRESS);
         String clientAddress = scanner.nextLine();
 //        -Клиент указывает срок аренды
-        System.out.println(ENTER_RENTAL_PERIOD);
-        int rentalPeriod = scanner.nextInt();
-        System.out.println(ENTER_CAR_PRICE);
-        double carPricePerDay = scanner.nextDouble();
+        int rentalPeriod = 0;
+        rentalPeriod = NumberValidUtil.getOperationNumberUtil().intPositiveNumberValid(rentalPeriod,ENTER_RENTAL_PERIOD);
+        double carPricePerDay = 0;
+        carPricePerDay = NumberValidUtil.getOperationNumberUtil().doublePositiveNumberValid(carPricePerDay,ENTER_CAR_PRICE);
 //        Стоимость заказа рассчитывается из указанной стоимости автомобиля за сутки и срока аренды
         double orderPrice = carPricePerDay * rentalPeriod;
         do {
@@ -110,6 +110,7 @@ public class OrderCreationMenu extends Menu {
                         System.out.println(ORDER_DECLINED);
                     } catch (NoConnectionJDBCException e) {
                         e.printStackTrace();
+
                     }
                     exit = true;
                     break;

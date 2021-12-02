@@ -14,7 +14,7 @@ public class AdminMenu extends Menu {
             "2. Регистрация возврата заказа\n" +
             "3. Список всех заказов\n" +
             "4. Экспортировать(Сериализация) все заказы в JSON файл\n" +
-            "5. Имортировать(Дисериализация) данные о заказах в бд\n" +
+            "5. Имортировать(Дисериализация) данные о заказах из JSON в бд\n" +
             "6. Выход";
     private static final String NO_OPERATION = "Не существует введённой вами операции, попробуйте ещё раз...";
     private static final String EXIT = "Выход...";
@@ -66,7 +66,7 @@ public class AdminMenu extends Menu {
                         e.printStackTrace();
                     }
                     System.out.println(EXIT);
-                    break;
+                    System.exit(0);
                 default:
                     System.out.println(NO_OPERATION);
                     break;

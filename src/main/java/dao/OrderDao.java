@@ -1,5 +1,6 @@
 package dao;
 
+import exceptions.NoConnectionJDBCException;
 import pojo.Client;
 import pojo.Order;
 
@@ -10,7 +11,7 @@ public interface OrderDao extends Dao<Order> {
     /*
      * Добавление заказа в бд с возвратом
      * */
-    Integer createWithRefund(Order order);
+    Integer createWithRefund(Order order) throws NoConnectionJDBCException;
 
     /*
      * Список одобренных заказов без возврата

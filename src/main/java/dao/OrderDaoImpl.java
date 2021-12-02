@@ -1,5 +1,6 @@
 package dao;
 
+import exceptions.NoConnectionJDBCException;
 import pojo.Car;
 import pojo.Client;
 import pojo.Order;
@@ -28,7 +29,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
     }
 
     @Override
-    public Integer create(Order order) {
+    public Integer create(Order order) throws NoConnectionJDBCException, SQLException {
         String sql = "INSERT INTO orders (id, price, state, date, time, car_id, client_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement;
@@ -39,27 +40,27 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
             statement.setString(3, order.getState());
             statement.setTimestamp(4, order.getDate());
             statement.setInt(5, order.getTime());
-//            if (order.getCar().getId() == null) {
-//                Car newCar = new Car();
-//                newCar.setName(order.getCar().getName());
-//                newCar.setState(order.getCar().getState());
-////                Добавить авто в бд с новым id
-//                Integer carId = CarService.getService().addNewCar(newCar);
-//                statement.setInt(6, newCar.getId());
-//            } else {
+            if (order.getCar().getId() == null) {
+                Car newCar = new Car();
+                newCar.setName(order.getCar().getName());
+                newCar.setState(order.getCar().getState());
+//                Добавить авто в бд с новым id
+                Integer carId = CarService.getService().addNewCar(newCar);
+                statement.setInt(6, newCar.getId());
+            } else {
                 statement.setInt(6, order.getCar().getId());
-//            }
+            }
 
-//            if (order.getClient().getId() == null) {
-//                Client newClient = new Client();
-//                newClient.setName(order.getClient().getName());
-//                newClient.setAddress(order.getClient().getAddress());
-////                Добавить клиента в бд с новым id
-//                final Integer clientId = ClientService.getService().addClient(newClient);
-//                statement.setInt(7, clientId);
-//            } else {
+            if (order.getClient().getId() == null) {
+                Client newClient = new Client();
+                newClient.setName(order.getClient().getName());
+                newClient.setAddress(order.getClient().getAddress());
+//                Добавить клиента в бд с новым id
+                final Integer clientId = ClientService.getService().addClient(newClient);
+                statement.setInt(7, clientId);
+            } else {
                 statement.setInt(7, order.getClient().getId());
-//            }
+            }
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +69,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
     }
 
     @Override
-    public Integer createWithRefund(Order order) {
+    public Integer createWithRefund(Order order) throws NoConnectionJDBCException {
         String sql = "INSERT INTO orders (id, price, state, date, time, car_id, client_id, refund_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement;
@@ -79,39 +80,39 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
             statement.setString(3, order.getState());
             statement.setTimestamp(4, order.getDate());
             statement.setInt(5, order.getTime());
-//            if (order.getCar().getId() == null) {
-//                Car newCar = new Car();
-//                newCar.setName(order.getCar().getName());
-//                newCar.setState(order.getCar().getState());
-////                Добавить авто в бд с новым id
-//                final Integer carId = CarService.getService().addNewCar(newCar);
-//                statement.setInt(6, carId);
-//            } else {
+            if (order.getCar().getId() == null) {
+                Car newCar = new Car();
+                newCar.setName(order.getCar().getName());
+                newCar.setState(order.getCar().getState());
+//                Добавить авто в бд с новым id
+                final Integer carId = CarService.getService().addNewCar(newCar);
+                statement.setInt(6, carId);
+            } else {
                 statement.setInt(6, order.getCar().getId());
-//            }
+            }
 
-//            if (order.getClient().getId() == null) {
-//                Client newClient = new Client();
-//                newClient.setName(order.getClient().getName());
-//                newClient.setAddress(order.getClient().getAddress());
-////                Добавить клиента в бд с новым id
-//                final Integer clientId = ClientService.getService().addClient(newClient);
-//                statement.setInt(7, clientId);
-//            } else {
+            if (order.getClient().getId() == null) {
+                Client newClient = new Client();
+                newClient.setName(order.getClient().getName());
+                newClient.setAddress(order.getClient().getAddress());
+//                Добавить клиента в бд с новым id
+                final Integer clientId = ClientService.getService().addClient(newClient);
+                statement.setInt(7, clientId);
+            } else {
                 statement.setInt(7, order.getClient().getId());
-//            }
+            }
 
-//            if (order.getRefund().getId() == null) {
-//                Refund newRefund = new Refund();
-//                newRefund.setDetail(order.getRefund().getDetail());
-//                newRefund.setState(order.getRefund().getState());
-//                newRefund.setPrice(order.getRefund().getPrice());
-////                Добавит заказ в бд с новым id
-//                final Integer refundId = RefundService.getInstance().addNewRefund(newRefund);
-//                statement.setInt(8, refundId);
-//            } else {
+            if (order.getRefund().getId() == null) {
+                Refund newRefund = new Refund();
+                newRefund.setDetail(order.getRefund().getDetail());
+                newRefund.setState(order.getRefund().getState());
+                newRefund.setPrice(order.getRefund().getPrice());
+//                Добавит заказ в бд с новым id
+                final Integer refundId = RefundService.getInstance().addNewRefund(newRefund);
+                statement.setInt(8, refundId);
+            } else {
                 statement.setInt(8, order.getRefund().getId());
-//            }
+            }
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

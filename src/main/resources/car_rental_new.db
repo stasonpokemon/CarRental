@@ -9,7 +9,6 @@ CREATE TABLE cars
     state VARCHAR(50)
 );
 
-};
 
 CREATE TABLE clients
 (
@@ -72,12 +71,16 @@ VALUES (2, 250.0, 'APPROVED', now(),2, 2,2);
 INSERT INTO orders (id, price, state, date, time, car_id, client_id)
 VALUES (3, 1200.0, 'APPROVED', now(),12, 4,2);
 
+
 SELECT * FROM orders;
 
 INSERT INTO refunds (id, state, price)
 VALUES (1, 'WITHOUT_DAMAGE', 0.0);
+INSERT INTO refunds (id, state,detail, price)
+VALUES (2, 'WITH_DAMAGE','two left widows', 120.0);
 
 UPDATE orders SET refund_id = 1 WHERE id = 2;
+UPDATE orders SET refund_id = 2 WHERE id = 3;
 
 SELECT * FROM orders;
 SELECT * FROM cars;

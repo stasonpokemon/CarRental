@@ -49,7 +49,7 @@ public class OrderService {
     /*
      * Создание нового заказа
      * */
-    public void addOrder(Order order) {
+    public void addOrder(Order order) throws NoConnectionJDBCException {
         try {
             Integer maxOrderId = OrderDaoImpl.getInstance().getMaxOrderId();
             if (maxOrderId != null){

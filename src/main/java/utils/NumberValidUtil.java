@@ -6,7 +6,9 @@ import java.util.Scanner;
 public class NumberValidUtil {
 
     private static final String ENTER_INTEGER = "Не верный формат значения. Введите значение типа Integer";
+    private static final String ENTER_POSITIVE_INTEGER = "Не верный формат значения. Введите положительно значение типа Integer";
     private static final String ENTER_DOUBLE = "Не верный формат значения. Введите значение типа Double";
+    private static final String ENTER_POSITIVE_DOUBLE = "Не верный формат значения. Введите положительно значение типа Double";
 
     private final Scanner scanner = new Scanner(System.in);
     private static NumberValidUtil numberValidUtil;
@@ -39,6 +41,30 @@ public class NumberValidUtil {
     }
 
     /*
+     * Метод для проверки положительных данных типа int
+     * */
+    public int intPositiveNumberValid(int number, String textInfo) {
+        boolean numberValid = false;
+        do {
+            try {
+                System.out.println(textInfo);
+                number = scanner.nextInt();
+                scanner.nextLine();
+                if (number < 0) {
+                    System.out.println(ENTER_POSITIVE_INTEGER);
+                } else {
+                    numberValid = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(ENTER_POSITIVE_INTEGER);
+                scanner.nextLine();
+                System.out.println("Exception: " + e);
+            }
+        } while (!numberValid);
+        return number;
+    }
+
+    /*
      * Метод для проверки данных типа double
      * */
     public double doubleNumberValid(double number, String textInfo) {
@@ -51,6 +77,30 @@ public class NumberValidUtil {
                 numberValid = true;
             } catch (InputMismatchException e) {
                 System.out.println(ENTER_DOUBLE);
+                scanner.nextLine();
+                System.out.println("Exception: " + e);
+            }
+        } while (!numberValid);
+        return number;
+    }
+
+    /*
+     * Метод для проверки положительных данных типа double
+     * */
+    public double doublePositiveNumberValid(double number, String textInfo) {
+        boolean numberValid = false;
+        do {
+            try {
+                System.out.println(textInfo);
+                number = scanner.nextDouble();
+                scanner.nextLine();
+                if (number < 0) {
+                    System.out.println(ENTER_POSITIVE_DOUBLE);
+                }else {
+                    numberValid = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(ENTER_POSITIVE_DOUBLE);
                 scanner.nextLine();
                 System.out.println("Exception: " + e);
             }
