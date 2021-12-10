@@ -1,6 +1,5 @@
 package menu.jsonParseMenu;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.NoConnectionJDBCException;
 import menu.Menu;
@@ -10,19 +9,15 @@ import menu.jsonParseMenu.serializers.OrderSerializer;
 import menu.jsonParseMenu.serializers.RefundSerializer;
 import pojo.*;
 import services.OrderService;
+import utils.LanguagePropertyLoader;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.util.List;
 import java.util.Scanner;
 
-public class SerializeOrdersToJsonMenu extends Menu {
-    public static final String ENTER_PATH = "Введите путь к файлу .json:";
-    public static final String FAILED_TO_LOAD = "Не удалось загрузить инормацию в json файл...";
-    public static final String LOAD_IS_COMPLETE = "Загрузка завершена...";
+public class SerializeOrdersToJsonMenu extends SerializeToJson implements Menu {
+    private final Scanner scanner = new Scanner(System.in);
 
     private static SerializeOrdersToJsonMenu menu;
-    private final Scanner scanner = new Scanner(System.in);
 
     private SerializeOrdersToJsonMenu() {
     }
@@ -37,12 +32,9 @@ public class SerializeOrdersToJsonMenu extends Menu {
     @Override
     public void getMenu() {
         try {
-            System.out.println(ENTER_PATH);
+            System.out.println(LanguagePropertyLoader.getProperty("SOTJM_ENTER_PATH"));
             String path = scanner.next();
-            //            Создаём объект заказов и передаём в него заказы из бд
-            OrdersForJson orders = OrdersForJson.getOrdersForJson();
-            orders.createOrdersForJson(OrderService.getOrderService().findAllOrders());
-            Gson gson = new GsonBuilder()
+            gson = new GsonBuilder()
                     .registerTypeAdapter(Order.class, new OrderSerializer())
                     .registerTypeAdapter(Car.class, new CarSerializer())
                     .registerTypeAdapter(Client.class, new ClientSerializer())
@@ -50,13 +42,9 @@ public class SerializeOrdersToJsonMenu extends Menu {
                     .setPrettyPrinting()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX")
                     .create();
-            try (Writer writer = new FileWriter(path)) {
-                gson.toJson(orders, writer);
-                System.out.println(LOAD_IS_COMPLETE);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(FAILED_TO_LOAD);
-            }
+            propName = "orders";
+            final List<Order> allOrders = OrderService.getOrderService().findAllOrders();
+            serialize(allOrders, path);
         } catch (NoConnectionJDBCException e) {
             e.printStackTrace();
         }

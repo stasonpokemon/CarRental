@@ -37,25 +37,24 @@ public class ParseOrderTime {
         int resultTime = 0;
         final String[] s = time.split(" ");
         if (s.length == 4) {
-            if (s[1].equals("week") && s[3].equals("day")) {
+            if ((s[1].equals("week") && s[3].equals("day"))
+                    || (s[1].equals("week") && s[3].equals("days"))) {
                 resultTime = (Integer.parseInt(s[0]) * 7) + Integer.parseInt(s[2]);
-            } else if (s[1].equals("week") && s[3].equals("days")) {
-                resultTime = (Integer.parseInt(s[0]) * 7) + Integer.parseInt(s[2]);
-            } else if (s[1].equals("weeks") && s[3].equals("day")) {
-                resultTime = (Integer.parseInt(s[0]) * 7) + Integer.parseInt(s[2]);
-            } else if (s[1].equals("weeks") && s[3].equals("days")) {
+            } else if ((s[1].equals("weeks") && s[3].equals("day"))
+                    || (s[1].equals("weeks") && s[3].equals("days"))) {
                 resultTime = (Integer.parseInt(s[0]) * 7) + Integer.parseInt(s[2]);
             }
         }
         if (s.length == 2) {
-            if (s[1].equals("week")) {
-                resultTime = (Integer.parseInt(s[0]) * 7);
-            } else if (s[1].equals("weeks")) {
-                resultTime = (Integer.parseInt(s[0]) * 7);
-            } else if (s[1].equals("day")) {
-                resultTime = Integer.parseInt(s[0]);
-            } else if (s[1].equals("days")) {
-                resultTime = Integer.parseInt(s[0]);
+            switch (s[1]) {
+                case "week":
+                case "weeks":
+                    resultTime = (Integer.parseInt(s[0]) * 7);
+                    break;
+                case "day":
+                case "days":
+                    resultTime = Integer.parseInt(s[0]);
+                    break;
             }
         }
         return resultTime;

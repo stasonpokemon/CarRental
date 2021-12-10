@@ -5,11 +5,6 @@ import java.util.Scanner;
 
 public class NumberValidUtil {
 
-    private static final String ENTER_INTEGER = "Не верный формат значения. Введите значение типа Integer";
-    private static final String ENTER_POSITIVE_INTEGER = "Не верный формат значения. Введите положительно значение типа Integer";
-    private static final String ENTER_DOUBLE = "Не верный формат значения. Введите значение типа Double";
-    private static final String ENTER_POSITIVE_DOUBLE = "Не верный формат значения. Введите положительно значение типа Double";
-
     private final Scanner scanner = new Scanner(System.in);
     private static NumberValidUtil numberValidUtil;
 
@@ -32,7 +27,7 @@ public class NumberValidUtil {
                 scanner.nextLine();
                 numberValid = true;
             } catch (InputMismatchException e) {
-                System.out.println(ENTER_INTEGER);
+                System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_INTEGER"));
                 scanner.nextLine();
                 System.out.println("Exception: " + e);
             }
@@ -51,12 +46,12 @@ public class NumberValidUtil {
                 number = scanner.nextInt();
                 scanner.nextLine();
                 if (number < 0) {
-                    System.out.println(ENTER_POSITIVE_INTEGER);
+                    System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_POSITIVE_INTEGER"));
                 } else {
                     numberValid = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println(ENTER_POSITIVE_INTEGER);
+                System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_POSITIVE_INTEGER"));
                 scanner.nextLine();
                 System.out.println("Exception: " + e);
             }
@@ -76,7 +71,7 @@ public class NumberValidUtil {
                 scanner.nextLine();
                 numberValid = true;
             } catch (InputMismatchException e) {
-                System.out.println(ENTER_DOUBLE);
+                System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_DOUBLE"));
                 scanner.nextLine();
                 System.out.println("Exception: " + e);
             }
@@ -95,12 +90,12 @@ public class NumberValidUtil {
                 number = scanner.nextDouble();
                 scanner.nextLine();
                 if (number < 0) {
-                    System.out.println(ENTER_POSITIVE_DOUBLE);
+                    System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_POSITIVE_DOUBLE"));
                 }else {
                     numberValid = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println(ENTER_POSITIVE_DOUBLE);
+                System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_POSITIVE_DOUBLE"));
                 scanner.nextLine();
                 System.out.println("Exception: " + e);
             }

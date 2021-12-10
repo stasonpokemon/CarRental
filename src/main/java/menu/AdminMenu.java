@@ -1,24 +1,15 @@
 package menu;
 
 import menu.jsonParseMenu.DeserializeOrdersFromJsonMenu;
+import menu.jsonParseMenu.SerializeClientsToJsonMenu;
 import menu.jsonParseMenu.SerializeOrdersToJsonMenu;
 import utils.JDBCConnector;
+import utils.LanguagePropertyLoader;
 import utils.NumberValidUtil;
 
 import java.sql.SQLException;
 
-public class AdminMenu extends Menu {
-
-    private static final String MAIN_MENU = "Меню администратора:\n" +
-            "1. Новый заказ\n" +
-            "2. Регистрация возврата заказа\n" +
-            "3. Список всех заказов\n" +
-            "4. Экспортировать(Сериализация) все заказы в JSON файл\n" +
-            "5. Имортировать(Дисериализация) данные о заказах из JSON в бд\n" +
-            "6. Выход";
-    private static final String NO_OPERATION = "Не существует введённой вами операции, попробуйте ещё раз...";
-    private static final String EXIT = "Выход...";
-
+public class AdminMenu implements Menu {
 
     private static int operationNumber;
 
@@ -39,7 +30,7 @@ public class AdminMenu extends Menu {
         Menu menu = null;
         boolean exit = false;
         do {
-            operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, MAIN_MENU);
+            operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("AM_MAIN_MENU"));
             switch (operationNumber) {
                 case 1:
                     menu = OrderCreationMenu.getInstance();
@@ -48,15 +39,24 @@ public class AdminMenu extends Menu {
                     menu = RefundRegistrationMenu.getInstance();
                     break;
                 case 3:
-                    menu = MenuOfAllOrders.getInstance();
+                    menu = ShowAllOrdersMenu.getInstance();
                     break;
                 case 4:
-                    menu = SerializeOrdersToJsonMenu.getInstance();
+                    menu = ShowAllClientsMenu.getInstance();
                     break;
                 case 5:
-                    menu = DeserializeOrdersFromJsonMenu.getInstance();
+                    menu = SerializeOrdersToJsonMenu.getInstance();
                     break;
                 case 6:
+                    menu = SerializeClientsToJsonMenu.getInstance();
+                    break;
+                case 7:
+                    menu = DeserializeOrdersFromJsonMenu.getInstance();
+                    break;
+                case 8:
+                    menu = SelectLanguageMenu.getInstance();
+                    break;
+                case 9:
                     exit = true;
                     menu = null;
 //                    Закрываем connection
@@ -65,10 +65,10 @@ public class AdminMenu extends Menu {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(EXIT);
+                    System.out.println(LanguagePropertyLoader.getProperty("AM_EXIT"));
                     System.exit(0);
                 default:
-                    System.out.println(NO_OPERATION);
+                    System.out.println(LanguagePropertyLoader.getProperty("AM_NO_OPERATION"));
                     break;
             }
 //            Механизм позднего(динамического) связывания

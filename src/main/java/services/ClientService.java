@@ -1,15 +1,20 @@
 package services;
 
+import dao.CarDaoImpl;
 import dao.ClientDaoImpl;
+import exceptions.NoConnectionJDBCException;
+import pojo.Car;
 import pojo.Client;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientService {
     private static ClientService service;
 
     public static ClientService getService() {
-        if (service == null){
+        if (service == null) {
             service = new ClientService();
         }
         return service;
@@ -31,5 +36,16 @@ public class ClientService {
             e.printStackTrace();
         }
         return client.getId();
+    }
+
+    public List<Client> getAllClients() throws NoConnectionJDBCException {
+        List<Client> clients = new ArrayList<>();
+        try {
+            clients = ClientDaoImpl.getInstance().readAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new NoConnectionJDBCException("Нет подключения к бд");
+        }
+        return clients;
     }
 }

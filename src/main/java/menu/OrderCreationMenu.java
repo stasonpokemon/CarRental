@@ -7,25 +7,16 @@ import pojo.Order;
 import services.CarService;
 import services.ClientService;
 import services.OrderService;
+import utils.LanguagePropertyLoader;
 import utils.NumberValidUtil;
 
 import java.sql.Timestamp;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-public class OrderCreationMenu extends Menu {
-    private static final String ORDER_CONFIRMATION = "Подтверждение заказа:\n" +
-            "1. Одобрить\n" +
-            "2. Отклонить";
-    private static final String ENTER_CAR_NAME = "Укажите название выбранного автомобиля:";
-    private static final String ENTER_CLIENT_NAME = "Укажите имя и фамилию клиента:";
-    private static final String ENTER_CLIENT_ADDRESS = "Укажите адрес клиента:";
-    private static final String ENTER_RENTAL_PERIOD = "Введите срок арнеды:";
-    private static final String ORDER_APPROVED = "Заказ принят...";
-    private static final String ORDER_DECLINED = "Заказ отклонён...";
-    private static final String NO_OPERATION = "Не существует введённой вами операции, попробуйте ещё раз...";
-    private static final String ENTER_CAR_PRICE = "Введите стоимость автомобиля за сутки:";
-
+public class OrderCreationMenu implements Menu {
 
     private static OrderCreationMenu menu;
     private final Scanner scanner = new Scanner(System.in);
@@ -45,38 +36,40 @@ public class OrderCreationMenu extends Menu {
     @Override
     public void getMenu() {
         boolean exit = false;
-        Order order = new Order();
-        Car car = new Car();
-        Client client = new Client();
+        Order order;
+        Car car;
+        Client client;
 
 
 //        -Клиент выбирает автомобиль
-        System.out.println(ENTER_CAR_NAME);
+        System.out.println(LanguagePropertyLoader.getProperty("OCM_ENTER_CAR_NAME"));
         String carName = scanner.nextLine();
 //        -Клиент называет имя, фамилию и адрес
-        System.out.println(ENTER_CLIENT_NAME);
+        System.out.println(LanguagePropertyLoader.getProperty("OCM_ENTER_CLIENT_NAME"));
         String clientName = scanner.nextLine();
-        System.out.println(ENTER_CLIENT_ADDRESS);
+        System.out.println(LanguagePropertyLoader.getProperty("OCM_ENTER_CLIENT_ADDRESS"));
         String clientAddress = scanner.nextLine();
 //        -Клиент указывает срок аренды
         int rentalPeriod = 0;
-        rentalPeriod = NumberValidUtil.getOperationNumberUtil().intPositiveNumberValid(rentalPeriod,ENTER_RENTAL_PERIOD);
+        rentalPeriod = NumberValidUtil.getOperationNumberUtil().intPositiveNumberValid(rentalPeriod, LanguagePropertyLoader.getProperty("OCM_ENTER_RENTAL_PERIOD"));
         double carPricePerDay = 0;
-        carPricePerDay = NumberValidUtil.getOperationNumberUtil().doublePositiveNumberValid(carPricePerDay,ENTER_CAR_PRICE);
+        carPricePerDay = NumberValidUtil.getOperationNumberUtil().doublePositiveNumberValid(carPricePerDay, LanguagePropertyLoader.getProperty("OCM_ENTER_CAR_PRICE"));
 //        Стоимость заказа рассчитывается из указанной стоимости автомобиля за сутки и срока аренды
         double orderPrice = carPricePerDay * rentalPeriod;
         do {
-            operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, ORDER_CONFIRMATION);
+            operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("OCM_ORDER_CONFIRMATION"));
             switch (operationNumber) {
                 case 1:
                     try {
+                        order = new Order();
+                        car = new Car();
+
                         car.setName(carName);
                         car.setState("WITHOUT_DAMAGE");
                         CarService.getService().addNewCar(car);
+//                        Метод, который проверяет, есть ли клиент с введёнными данными в бд. Если такой клиент имеется, то мы не создаём новый объект клиента
+                        client = searchClientInDb(clientName, clientAddress);
 
-                        client.setName(clientName);
-                        client.setAddress(clientAddress);
-                        ClientService.getService().addClient(client);
 
                         order.setPrice(orderPrice);
                         order.setState("Approved");
@@ -85,7 +78,7 @@ public class OrderCreationMenu extends Menu {
                         order.setCar(car);
                         order.setClient(client);
                         OrderService.getOrderService().addOrder(order);
-                        System.out.println(ORDER_APPROVED);
+                        System.out.println(LanguagePropertyLoader.getProperty("OCM_ORDER_APPROVED"));
                     } catch (NoConnectionJDBCException e) {
                         e.printStackTrace();
                     }
@@ -93,13 +86,15 @@ public class OrderCreationMenu extends Menu {
                     break;
                 case 2:
                     try {
+                        order = new Order();
+                        car = new Car();
+
                         car.setName(carName);
                         car.setState("WITHOUT_DAMAGE");
                         CarService.getService().addNewCar(car);
 
-                        client.setName(clientName);
-                        client.setAddress(clientAddress);
-                        ClientService.getService().addClient(client);
+ //                        Метод, который проверяет, есть ли клиент с введёнными данными в бд. Если такой клиент имеется, то мы не создаём новый объект клиента
+                        client = searchClientInDb(clientName, clientAddress);
 
                         order.setState("Declined");
                         order.setDate(new Timestamp(new GregorianCalendar().getTimeInMillis()));
@@ -107,7 +102,7 @@ public class OrderCreationMenu extends Menu {
                         order.setCar(car);
                         order.setClient(client);
                         OrderService.getOrderService().addOrder(order);
-                        System.out.println(ORDER_DECLINED);
+                        System.out.println(LanguagePropertyLoader.getProperty("OCM_ORDER_DECLINED"));
                     } catch (NoConnectionJDBCException e) {
                         e.printStackTrace();
 
@@ -115,9 +110,24 @@ public class OrderCreationMenu extends Menu {
                     exit = true;
                     break;
                 default:
-                    System.out.println(NO_OPERATION);
+                    System.out.println(LanguagePropertyLoader.getProperty("OCM_NO_OPERATION"));
                     break;
             }
         } while (!exit);
+    }
+
+
+    private Client searchClientInDb(String clientName, String clientAddress) throws NoConnectionJDBCException {
+        Client client;
+        final List<Client> collect = ClientService.getService().getAllClients().stream().filter(name -> name.getName().equals(clientName)).filter(address -> address.getAddress().equals(clientAddress)).collect(Collectors.toList());
+        if (collect.size() == 0) {
+            client = new Client();
+            client.setName(clientName);
+            client.setAddress(clientAddress);
+            ClientService.getService().addClient(client);
+        } else {
+            client = collect.get(0);
+        }
+        return client;
     }
 }

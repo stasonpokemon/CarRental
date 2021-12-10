@@ -86,6 +86,62 @@
         "state": "Without Damage",
         "price": 0.0
       }
+    },
+    {
+      "price": "$51984.0",
+      "state": "Approved",
+      "date": "2021-11-25T18:47:33 +03:00",
+      "time": "32 weeks 4 days",
+      "car": {
+        "name": "TiMURCar",
+        "state": "WITHOUT_DAMAGE"
+      },
+      "client": {
+        "name": "Tiiiiiima Chibikov",
+        "address": "Obshaga 3"
+      }
+    },
+    {
+      "price": "$4225.0",
+      "state": "Approved",
+      "date": "2021-12-02T14:29:39 +03:00",
+      "time": "1 week 6 days",
+      "car": {
+        "name": "BMW M2",
+        "state": "WITHOUT_DAMAGE"
+      },
+      "client": {
+        "name": "Kerr Sharp",
+        "address": "959 Grand Avenue, Chical, Massachusetts, 550"
+      }
+    },
+    {
+      "price": "$690.0",
+      "state": "Approved",
+      "date": "2021-12-02T15:18:26 +03:00",
+      "time": "3 days",
+      "car": {
+        "name": "Audi TT RS",
+        "state": "WITHOUT_DAMAGE"
+      },
+      "client": {
+        "name": "Pavel Vorobiov ",
+        "address": "Hoiniki"
+      }
+    },
+    {
+      "price": "$69120.0",
+      "state": "Approved",
+      "date": "2011-12-02T15:18:26 +03:00",
+      "time": "6 days",
+      "car": {
+        "name": "Audi RS6",
+        "state": "WITHOUT_DAMAGE"
+      },
+      "client": {
+        "name": "Pavel Jons",
+        "address": "Boston"
+      }
     }
   ]
 }

@@ -1,6 +1,9 @@
 package dao;
 
+import pojo.Car;
 import pojo.Client;
+
+import java.util.List;
 
 public interface ClientDao extends Dao<Client> {
     /*
@@ -8,4 +11,6 @@ public interface ClientDao extends Dao<Client> {
      * */
 
     int getMaxClientId();
+    List<Client> readAll();
+
 }

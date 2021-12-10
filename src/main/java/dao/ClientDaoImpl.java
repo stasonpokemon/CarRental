@@ -1,10 +1,12 @@
 package dao;
 
+import pojo.Car;
 import pojo.Client;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
@@ -52,5 +54,28 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
             e.printStackTrace();
         }
         return id;
+    }
+
+    @Override
+    public List<Client> readAll() {
+        String sql = "SELECT id, name, address FROM clients";
+        PreparedStatement statement;
+        ResultSet resultSet;
+        List<Client> clients = new ArrayList<>();
+        Client client;
+        try {
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                client = new Client();
+                client.setId(resultSet.getInt("id"));
+                client.setName(resultSet.getString("name"));
+                client.setAddress(resultSet.getString("address"));
+                clients.add(client);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clients;
     }
 }

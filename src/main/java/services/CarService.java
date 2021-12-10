@@ -5,6 +5,8 @@ import exceptions.NoConnectionJDBCException;
 import pojo.Car;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarService {
     private static CarService service;
@@ -33,5 +35,16 @@ public class CarService {
             throw new NoConnectionJDBCException("Нет подключения к бд");
         }
         return car.getId();
+    }
+
+    public List<Car> getAllCars() throws NoConnectionJDBCException {
+        List<Car> cars = new ArrayList<>();
+        try {
+            cars = CarDaoImpl.getInstance().readAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new NoConnectionJDBCException("Нет подключения к бд");
+        }
+        return cars;
     }
 }

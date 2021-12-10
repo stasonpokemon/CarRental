@@ -7,10 +7,6 @@ import java.sql.SQLException;
 
 public class JDBCConnector {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/car_rental_new";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "admin";
-
     // Используем шаблон одиночка, чтобы не плодить множество экземпляров класса JDBCConnector
     private static JDBCConnector instance = null;
 
@@ -29,7 +25,9 @@ public class JDBCConnector {
 //        DriverManager.registerDriver();
 
         // Выполняем подключение к базе данных
-        this.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        this.connection = DriverManager.getConnection(JDBCPropertyLoader.getProperty("URL"),
+                JDBCPropertyLoader.getProperty("USERNAME"),
+                JDBCPropertyLoader.getProperty("PASSWORD"));
     }
 
     public Connection getConnection() {
