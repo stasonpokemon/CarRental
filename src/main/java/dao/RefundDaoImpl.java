@@ -40,7 +40,7 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
 
     @Override
     public int getMaxRefundId() {
-        String sql = "SELECT MAX(id) FROM refunds";
+        String sql = "SELECT MAX(id) as 'max' FROM refunds";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         int id = 0;
@@ -48,7 +48,7 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                id = resultSet.getInt("MAX(id)");
+                id = resultSet.getInt("max");
             }
         } catch (SQLException e) {
             e.printStackTrace();

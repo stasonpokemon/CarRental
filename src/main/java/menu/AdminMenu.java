@@ -15,7 +15,7 @@ public class AdminMenu implements Menu {
 
     private static AdminMenu adminMenu;
 
-    private AdminMenu() {
+    public AdminMenu() {
     }
 
     public static AdminMenu getInstance() {

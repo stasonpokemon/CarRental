@@ -15,6 +15,7 @@ public abstract class SerializeToJson {
     protected Gson gson;
     protected String propName;
 
+
     protected <T extends Entity> void serialize(List<T> data, String filePathName) {
         try (Writer writer = new FileWriter(filePathName)) {
             final JsonElement element = gson.toJsonTree(data);

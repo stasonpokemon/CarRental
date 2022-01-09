@@ -23,7 +23,7 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
 
     @Override
     public int getMaxCarId() {
-        String sql = "SELECT MAX(id) FROM cars";
+        String sql = "SELECT MAX(id) as 'max' FROM cars";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         int id = 0;
@@ -31,7 +31,7 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                id = resultSet.getInt("MAX(id)");
+                id = resultSet.getInt("max");
             }
         } catch (SQLException e) {
             e.printStackTrace();

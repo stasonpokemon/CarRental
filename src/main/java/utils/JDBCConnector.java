@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 public class JDBCConnector {
 
-    // Используем шаблон одиночка, чтобы не плодить множество экземпляров класса JDBCConnector
     private static JDBCConnector instance = null;
 
     public static JDBCConnector getInstance() throws SQLException {

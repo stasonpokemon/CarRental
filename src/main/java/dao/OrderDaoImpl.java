@@ -298,7 +298,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
 
     @Override
     public Integer getMaxOrderId() {
-        String sql = "SELECT MAX(id) FROM orders";
+        String sql = "SELECT MAX(id) as 'max' FROM orders";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Integer id = 0;
@@ -306,7 +306,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                id = resultSet.getInt("MAX(id)");
+                id = resultSet.getInt("max");
             }
         } catch (SQLException e) {
             e.printStackTrace();

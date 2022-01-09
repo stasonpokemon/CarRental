@@ -64,10 +64,8 @@ SELECT * FROM clients;
 
 INSERT INTO orders (id, price, state, date, time, car_id, client_id)
 VALUES (1, 350.0, 'DECLINED', now(),5, 1,1);
-
 INSERT INTO orders (id, price, state, date, time, car_id, client_id)
 VALUES (2, 250.0, 'APPROVED', now(),2, 2,2);
-
 INSERT INTO orders (id, price, state, date, time, car_id, client_id)
 VALUES (3, 1200.0, 'APPROVED', now(),12, 4,2);
 

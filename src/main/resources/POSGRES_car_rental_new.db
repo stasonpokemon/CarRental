@@ -1,0 +1,46 @@
+CREATE TABLE IF NOT EXISTS cars
+(
+    id integer NOT NULL,
+    name character varying(50) ,
+    state character varying(50),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS clients
+(
+    id integer NOT NULL,
+    name character varying(50),
+    address character varying(50),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS refunds
+(
+    id integer NOT NULL,
+    state character varying(50),
+    detail character varying(50),
+    price double precision,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS orders
+(
+    id integer,
+    price double precision,
+    state character varying(50) COLLATE pg_catalog."default",
+    date timestamp with time zone,
+    "time" integer NOT NULL,
+    car_id integer NOT NULL,
+    client_id integer NOT NULL,
+    refund_id integer,
+    PRIMARY KEY (id),
+    FOREIGN KEY (car_id) REFERENCES cars (id)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
+    FOREIGN KEY (client_id) REFERENCES clients (id)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
+    FOREIGN KEY (refund_id) REFERENCES refunds (id)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+);

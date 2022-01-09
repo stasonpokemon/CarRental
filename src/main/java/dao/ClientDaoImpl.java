@@ -40,7 +40,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 
     @Override
     public int getMaxClientId() {
-        String sql = "SELECT MAX(id) FROM clients";
+        String sql = "SELECT MAX(id) as 'max' FROM clients";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         int id = 0;
@@ -48,7 +48,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                id = resultSet.getInt("MAX(id)");
+                id = resultSet.getInt("max");
             }
         } catch (SQLException e) {
             e.printStackTrace();
