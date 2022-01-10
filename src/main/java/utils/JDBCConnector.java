@@ -1,14 +1,29 @@
 package utils;
 
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Util класс для соединения с базой данных <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class JDBCConnector {
 
+    /**
+     * Статическое поле connect класса {@link JDBCConnector} для реализации Singleton
+     */
     private static JDBCConnector instance = null;
 
+    /**
+     * Статическая функция получения значения поля {@link JDBCConnector#instance}
+     *
+     * @return возвращает экземпляр класса {@link JDBCConnector}
+     */
     public static JDBCConnector getInstance() throws SQLException {
         if (instance == null) {
             instance = new JDBCConnector();
@@ -16,9 +31,17 @@ public class JDBCConnector {
         return instance;
     }
 
-    // Объект, в котором будет храниться соединение с БД
+    /**
+     * Статическое поле объекта, в котором будет храниться соединение с БД {@link Connection}
+     */
     private final Connection connection;
 
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     *
+     * @return возвращает экземпляр класса {@link JDBCConnector}
+     * @throws SQLException - при неправильном поключении к бд
+     */
     private JDBCConnector() throws SQLException {
         // Регистрируем драйвер, с которым будем работать
 //        DriverManager.registerDriver();
@@ -29,10 +52,20 @@ public class JDBCConnector {
                 JDBCPropertyLoader.getProperty("PASSWORD"));
     }
 
+    /**
+     * Функция получения экземпляра класса {@link Connection}
+     *
+     * @return возвращает экземпляр класса Connection
+     */
     public Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Функция закрытия соединения {@link Connection}
+     *
+     * @throws SQLException - при неправильном поключении к бд
+     */
     public void connectionClose() throws SQLException {
         connection.close();
     }

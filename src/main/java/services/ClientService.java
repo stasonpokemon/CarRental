@@ -1,28 +1,50 @@
 package services;
 
-import dao.CarDaoImpl;
 import dao.ClientDaoImpl;
 import exceptions.NoConnectionJDBCException;
-import pojo.Car;
 import pojo.Client;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервесный класс для клиента со свойствами <b>service</b>.
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class ClientService {
-    private static ClientService service;
+    /**
+     * Статическое поле сервесного класса {@link ClientService} для реализации Singleton
+     */
+    private static ClientService instance;
 
-    public static ClientService getService() {
-        if (service == null) {
-            service = new ClientService();
+    /**
+     * Статическая функция получения значения поля {@link ClientService#instance}
+     *
+     * @return возвращает экземпляр класса {@link ClientService}
+     */
+    public static ClientService getInstance() {
+        if (instance == null) {
+            instance = new ClientService();
         }
-        return service;
+        return instance;
     }
 
-    /*
-     * Регистрация нового клиента
-     * */
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     */
+    private ClientService() {
+    }
+
+
+    /**
+     * Функция добавление нового клиента и получения его идентификатора {@link Client#getId()}
+     *
+     * @param client - объект добавляемого клиента
+     * @return возвращает идентификатор добавляемого клиента
+     * @throws SQLException
+     */
     public Integer addClient(Client client) {
         try {
             int maxUserId = ClientDaoImpl.getInstance().getMaxClientId();
@@ -38,8 +60,14 @@ public class ClientService {
         return client.getId();
     }
 
+    /**
+     * Функция получения всех клиентов из списка {@link Client}
+     *
+     * @return возвращает список клиентов
+     * @throws NoConnectionJDBCException - при неправильном поключении к бд
+     */
     public List<Client> getAllClients() throws NoConnectionJDBCException {
-        List<Client> clients = new ArrayList<>();
+        List<Client> clients;
         try {
             clients = ClientDaoImpl.getInstance().readAll();
         } catch (SQLException e) {

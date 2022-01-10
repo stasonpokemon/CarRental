@@ -43,7 +43,7 @@ public class SerializeOrdersToJsonMenu extends SerializeToJson implements Menu {
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX")
                     .create();
             propName = "orders";
-            final List<Order> allOrders = OrderService.getOrderService().findAllOrders();
+            final List<Order> allOrders = OrderService.getInstance().findAllOrders();
             serialize(allOrders, path);
         } catch (NoConnectionJDBCException e) {
             e.printStackTrace();

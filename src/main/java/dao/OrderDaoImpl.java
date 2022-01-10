@@ -45,7 +45,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
                 newCar.setName(order.getCar().getName());
                 newCar.setState(order.getCar().getState());
 //                Добавить авто в бд с новым id
-                Integer carId = CarService.getService().addNewCar(newCar);
+                Integer carId = CarService.getInstance().addNewCar(newCar);
                 statement.setInt(6, newCar.getId());
             } else {
                 statement.setInt(6, order.getCar().getId());
@@ -56,7 +56,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
                 newClient.setName(order.getClient().getName());
                 newClient.setAddress(order.getClient().getAddress());
 //                Добавить клиента в бд с новым id
-                final Integer clientId = ClientService.getService().addClient(newClient);
+                final Integer clientId = ClientService.getInstance().addClient(newClient);
                 statement.setInt(7, clientId);
             } else {
                 statement.setInt(7, order.getClient().getId());
@@ -85,7 +85,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
                 newCar.setName(order.getCar().getName());
                 newCar.setState(order.getCar().getState());
 //                Добавить авто в бд с новым id
-                final Integer carId = CarService.getService().addNewCar(newCar);
+                final Integer carId = CarService.getInstance().addNewCar(newCar);
                 statement.setInt(6, carId);
             } else {
                 statement.setInt(6, order.getCar().getId());
@@ -96,7 +96,7 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
                 newClient.setName(order.getClient().getName());
                 newClient.setAddress(order.getClient().getAddress());
 //                Добавить клиента в бд с новым id
-                final Integer clientId = ClientService.getService().addClient(newClient);
+                final Integer clientId = ClientService.getInstance().addClient(newClient);
                 statement.setInt(7, clientId);
             } else {
                 statement.setInt(7, order.getClient().getId());

@@ -34,7 +34,7 @@ public class SerializeCarsToJsonMenu extends SerializeToJson implements Menu {
             String path = scanner.next();
             gson = new GsonBuilder().setPrettyPrinting().create();
             propName = "cars";
-            final List<Car> allCars = CarService.getService().getAllCars();
+            final List<Car> allCars = CarService.getInstance().getAllCars();
             serialize(allCars, path);
         } catch (NoConnectionJDBCException e) {
             e.printStackTrace();

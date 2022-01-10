@@ -9,28 +9,51 @@ import utils.NumberValidUtil;
 
 import java.sql.SQLException;
 
+/**
+ * Класс главного меню приложения, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class AdminMenu implements Menu {
 
-    private static int operationNumber;
+    /**
+     * Поле номера выбора операции
+     */
+    private int operationNumber;
 
-    private static AdminMenu adminMenu;
+    /**
+     * Статическое поле класса меню {@link AdminMenu} для реализации Singleton
+     */
+    private static AdminMenu instance;
 
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     */
     public AdminMenu() {
     }
 
+    /**
+     * Статическая функция получения значения поля {@link AdminMenu#instance}
+     *
+     * @return возвращает экземпляр класса {@link AdminMenu}
+     */
     public static AdminMenu getInstance() {
-        if (adminMenu == null) {
-            adminMenu = new AdminMenu();
+        if (instance == null) {
+            instance = new AdminMenu();
         }
-        return adminMenu;
+        return instance;
     }
 
+    /**
+     * Функция вызова главного меню
+     */
     @Override
     public void getMenu() {
         Menu menu = null;
         boolean exit = false;
         do {
-            operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("AM_MAIN_MENU"));
+            operationNumber = NumberValidUtil.getInstance().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("AM_MAIN_MENU"));
             switch (operationNumber) {
                 case 1:
                     menu = OrderCreationMenu.getInstance();
@@ -75,7 +98,6 @@ public class AdminMenu implements Menu {
             if (menu != null) {
                 menu.getMenu();
             }
-
         } while (!exit);
     }
 }

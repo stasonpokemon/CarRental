@@ -1,7 +1,20 @@
 package utils;
 
+import pojo.Order;
+
+/**
+ * Util класс для парсинга срока аренды из Json в объект {@link pojo.Order} и наоборот
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class ParseOrderTime {
 
+    /**
+     * Статическая функция парсинга срока аренды {@link Order#getTime()}} из объекта {@link Order} для Json файла
+     *
+     * @return возвращает готовую строку для записи в Json файл
+     */
     public static String parseTimeToJson(int time) {
         String resultTime = null;
         if (time < 7) {
@@ -33,6 +46,11 @@ public class ParseOrderTime {
         return resultTime;
     }
 
+    /**
+     * Статическая функция парсинга срока аренды {@link Order#getTime()}} из Json файла в объект {@link Order}
+     *
+     * @return возвращает готовую строку для записи в объект {@link Order}
+     */
     public static int parseTimeFromJson(String time) {
         int resultTime = 0;
         final String[] s = time.split(" ");

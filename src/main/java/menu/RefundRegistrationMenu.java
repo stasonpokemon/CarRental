@@ -11,32 +11,57 @@ import utils.NumberValidUtil;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Класс меню, который позволяет реализовать регистрацию возврата автомобиля, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class RefundRegistrationMenu implements Menu {
 
+    /**
+     * Поле сканера для чтения строк из консоли
+     */
     private final Scanner scanner = new Scanner(System.in);
 
-    private static int operationNumber;
+    /**
+     * Поле номера выбора операции
+     */
+    private int operationNumber;
 
-    private static RefundRegistrationMenu menu;
+    /**
+     * Статическое поле класса меню {@link RefundRegistrationMenu} для реализации Singleton
+     */
+    private static RefundRegistrationMenu instance;
 
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     */
     private RefundRegistrationMenu() {
     }
 
+    /**
+     * Статическая функция получения значения поля {@link RefundRegistrationMenu#instance}
+     *
+     * @return возвращает экземпляр класса {@link RefundRegistrationMenu}
+     */
     public static RefundRegistrationMenu getInstance() {
-        if (menu == null) {
-            menu = new RefundRegistrationMenu();
+        if (instance == null) {
+            instance = new RefundRegistrationMenu();
         }
-        return menu;
+        return instance;
     }
 
-
+    /**
+     * Функция вызова меню, которая позволяет реализовать регистрацию возврата автомобиля
+     */
     @Override
     public void getMenu() {
         try {
             boolean exit = false;
-            if (OrderService.getOrderService().findApprovedOrdersWithoutRefund().size() == 0) {
+            if (OrderService.getInstance().findApprovedOrdersWithoutRefund().size() == 0) {
                 do {
-                    operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("RRM_NO_ORDER"));
+                    operationNumber = NumberValidUtil.getInstance().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("RRM_NO_ORDER"));
                     if (operationNumber == 1) {
                         exit = true;
                     } else {
@@ -45,11 +70,11 @@ public class RefundRegistrationMenu implements Menu {
                 } while (!exit);
             } else {
                 do {
-                    final List<Order> approvedOrdersWithoutRefund = OrderService.getOrderService().findApprovedOrdersWithoutRefund();
+                    final List<Order> approvedOrdersWithoutRefund = OrderService.getInstance().findApprovedOrdersWithoutRefund();
                     for (Order order : approvedOrdersWithoutRefund) {
                         System.out.println(LanguagePropertyLoader.getProperty("RRM_ORDER_NUMBER") + " - " + order.getId() + ": " + order);
                     }
-                    operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("RRM_REFUND_MENU"));
+                    operationNumber = NumberValidUtil.getInstance().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("RRM_REFUND_MENU"));
                     switch (operationNumber) {
                         case 1:
                             registration();
@@ -70,6 +95,12 @@ public class RefundRegistrationMenu implements Menu {
         }
     }
 
+    /**
+     * Метод регистрации
+     *
+     * @throws NoConnectionJDBCException
+     * @see NoConnectionJDBCException
+     */
     private void registration() throws NoConnectionJDBCException {
         Order order = new Order();
         Refund refund;
@@ -77,8 +108,8 @@ public class RefundRegistrationMenu implements Menu {
         boolean orderNumberValid = false;
         do {
             int orderNumber = 0;
-            orderNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(orderNumber, LanguagePropertyLoader.getProperty("RRM_ENTER_ORDER_NUMBER"));
-            for (Order orderWithoutRefund : OrderService.getOrderService().findApprovedOrdersWithoutRefund()) {
+            orderNumber = NumberValidUtil.getInstance().intNumberValid(orderNumber, LanguagePropertyLoader.getProperty("RRM_ENTER_ORDER_NUMBER"));
+            for (Order orderWithoutRefund : OrderService.getInstance().findApprovedOrdersWithoutRefund()) {
                 if (orderWithoutRefund.getId().equals(orderNumber)) {
                     order = orderWithoutRefund;
                     orderNumberValid = true;
@@ -87,14 +118,14 @@ public class RefundRegistrationMenu implements Menu {
             }
             if (orderNumberValid) {
                 System.out.println(LanguagePropertyLoader.getProperty("RRM_CAR_STATE") + " - " + order.getCar());
-                operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("RRM_CAR_STATE_MENU"));
+                operationNumber = NumberValidUtil.getInstance().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("RRM_CAR_STATE_MENU"));
                 switch (operationNumber) {
                     case 1:
                         refund = new Refund();
                         refund.setState("Without Damage");
                         RefundService.getInstance().addNewRefund(refund);
                         order.setRefund(refund);
-                        OrderService.getOrderService().update(order);
+                        OrderService.getInstance().update(order);
                         System.out.println(LanguagePropertyLoader.getProperty("RRM_REFUND_REGISTERED"));
                         exit = true;
                         break;
@@ -105,11 +136,11 @@ public class RefundRegistrationMenu implements Menu {
                         String detail = scanner.nextLine();
                         refund.setDetail(detail);
                         double price = 0;
-                        price = NumberValidUtil.getOperationNumberUtil().doubleNumberValid(price, LanguagePropertyLoader.getProperty("RRM_ENTER_REFUND_PRICE"));
+                        price = NumberValidUtil.getInstance().doubleNumberValid(price, LanguagePropertyLoader.getProperty("RRM_ENTER_REFUND_PRICE"));
                         refund.setPrice(price);
                         RefundService.getInstance().addNewRefund(refund);
                         order.setRefund(refund);
-                        OrderService.getOrderService().update(order);
+                        OrderService.getInstance().update(order);
                         System.out.println(LanguagePropertyLoader.getProperty("RRM_REFUND_REGISTERED"));
                         exit = true;
                         break;

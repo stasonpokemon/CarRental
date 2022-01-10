@@ -3,25 +3,50 @@ package menu;
 import utils.LanguagePropertyLoader;
 import utils.NumberValidUtil;
 
+/**
+ * Класс меню, который позволяет выбрать язык приложения, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class SelectLanguageMenu implements Menu {
-    private static SelectLanguageMenu instance;
-    private static int operationNumber;
 
+    /**
+     * Поле номера выбора операции
+     */
+    private int operationNumber;
+
+    /**
+     * Статическое поле класса меню {@link SelectLanguageMenu} для реализации Singleton
+     */
+    private static SelectLanguageMenu instance;
+
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     */
     private SelectLanguageMenu() {
     }
 
-    public static Menu getInstance() {
+    /**
+     * Статическая функция получения значения поля {@link SelectLanguageMenu#instance}
+     *
+     * @return возвращает экземпляр класса {@link SelectLanguageMenu}
+     */
+    public static SelectLanguageMenu getInstance() {
         if (instance == null) {
             instance = new SelectLanguageMenu();
         }
         return instance;
     }
 
+    /**
+     * Функция вызова меню, которое позволяет выбрать язык приложения
+     */
     @Override
     public void getMenu() {
         boolean exit = false;
         do {
-            operationNumber = NumberValidUtil.getOperationNumberUtil().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("SLM_SELECT_LANGUAGE"));
+            operationNumber = NumberValidUtil.getInstance().intNumberValid(operationNumber, LanguagePropertyLoader.getProperty("SLM_SELECT_LANGUAGE"));
             switch (operationNumber) {
                 case 1:
                     LanguagePropertyLoader.selectRussianLanguageProperty();
@@ -38,6 +63,5 @@ public class SelectLanguageMenu implements Menu {
                     System.out.println(LanguagePropertyLoader.getProperty("SLM_NO_OPERATION"));
             }
         } while (!exit);
-
     }
 }

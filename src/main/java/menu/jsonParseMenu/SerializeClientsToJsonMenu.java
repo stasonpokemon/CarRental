@@ -31,7 +31,7 @@ public class SerializeClientsToJsonMenu extends SerializeToJson implements Menu 
             String path = scanner.next();
             gson = new GsonBuilder().setPrettyPrinting().create();
             propName = "clients";
-            final List<Client> allClients = ClientService.getService().getAllClients();
+            final List<Client> allClients = ClientService.getInstance().getAllClients();
             serialize(allClients, path);
         } catch (NoConnectionJDBCException e) {
             e.printStackTrace();

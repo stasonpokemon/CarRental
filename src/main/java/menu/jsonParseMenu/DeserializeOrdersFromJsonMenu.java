@@ -61,12 +61,12 @@ public class DeserializeOrdersFromJsonMenu implements Menu {
                 List<Order> ordersFromJson = gson.fromJson(asJsonArray, new TypeToken<List<Order>>() {
                 }.getType());
 //                Проверка на уникальность заказа
-                final List<Order> ordersFromDb = OrderService.getOrderService().findAllOrders();
+                final List<Order> ordersFromDb = OrderService.getInstance().findAllOrders();
                 List<Order> toDB = ordersFromJson.stream().filter(s1 -> ordersFromDb.stream()
                         .noneMatch(s2 -> isSame(s1, s2))).collect(toList());
                 toDB.forEach(order -> {
                     try {
-                        OrderService.getOrderService().addOrder(order);
+                        OrderService.getInstance().addOrder(order);
                     } catch (NoConnectionJDBCException e) {
                         e.printStackTrace();
                     }

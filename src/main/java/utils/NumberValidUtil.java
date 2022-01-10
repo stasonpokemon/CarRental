@@ -1,23 +1,52 @@
 package utils;
 
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Util класс для валидации числовых значений, со свойствами <b>scanner</b> и <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Stanislav Trebnikov
+ */
 public class NumberValidUtil {
 
+    /**
+     * Поле сканера для чтения строк из консоли
+     */
     private final Scanner scanner = new Scanner(System.in);
-    private static NumberValidUtil numberValidUtil;
+    /**
+     * Статическое поле класса {@link NumberValidUtil} для реализации Singleton
+     */
+    private static NumberValidUtil instance;
 
-    public static NumberValidUtil getOperationNumberUtil() {
-        if (numberValidUtil == null) {
-            numberValidUtil = new NumberValidUtil();
+    /**
+     * Статическая функция получения значения поля {@link NumberValidUtil#instance}
+     *
+     * @return возвращает экземпляр класса {@link NumberValidUtil}
+     */
+    public static NumberValidUtil getInstance() {
+        if (instance == null) {
+            instance = new NumberValidUtil();
         }
-        return numberValidUtil;
+        return instance;
     }
 
-    /*
-     * Метод для проверки данных типа int
-     * */
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     */
+    private NumberValidUtil() {
+    }
+
+    /**
+     * Функция для проверки данных типа int
+     *
+     * @param number   - значение, над которым мы хотим провести валидацию
+     * @param textInfo - текстовое сообщение
+     * @return возвращает значение, над которым мы провели валидацию
+     * @throws InputMismatchException
+     */
     public int intNumberValid(int number, String textInfo) {
         boolean numberValid = false;
         do {
@@ -35,9 +64,15 @@ public class NumberValidUtil {
         return number;
     }
 
-    /*
-     * Метод для проверки положительных данных типа int
-     * */
+
+    /**
+     * Функция для проверки положительных данных типа int
+     *
+     * @param number   - значение, над которым мы хотим провести валидацию
+     * @param textInfo - текстовое сообщение
+     * @return возвращает значение, над которым мы провели валидацию
+     * @throws InputMismatchException
+     */
     public int intPositiveNumberValid(int number, String textInfo) {
         boolean numberValid = false;
         do {
@@ -59,9 +94,15 @@ public class NumberValidUtil {
         return number;
     }
 
-    /*
-     * Метод для проверки данных типа double
-     * */
+
+    /**
+     * Функция для проверки данных типа double
+     *
+     * @param number   - значение, над которым мы хотим провести валидацию
+     * @param textInfo - текстовое сообщение
+     * @return возвращает значение, над которым мы провели валидацию
+     * @throws InputMismatchException
+     */
     public double doubleNumberValid(double number, String textInfo) {
         boolean numberValid = false;
         do {
@@ -79,9 +120,15 @@ public class NumberValidUtil {
         return number;
     }
 
-    /*
-     * Метод для проверки положительных данных типа double
-     * */
+
+    /**
+     * Функция для проверки положительных данных типа double
+     *
+     * @param number   - значение, над которым мы хотим провести валидацию
+     * @param textInfo - текстовое сообщение
+     * @return возвращает значение, над которым мы провели валидацию
+     * @throws InputMismatchException
+     */
     public double doublePositiveNumberValid(double number, String textInfo) {
         boolean numberValid = false;
         do {
@@ -91,7 +138,7 @@ public class NumberValidUtil {
                 scanner.nextLine();
                 if (number < 0) {
                     System.out.println(LanguagePropertyLoader.getProperty("NVU_ENTER_POSITIVE_DOUBLE"));
-                }else {
+                } else {
                     numberValid = true;
                 }
             } catch (InputMismatchException e) {
