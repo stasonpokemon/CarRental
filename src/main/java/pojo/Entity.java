@@ -7,7 +7,7 @@ import java.util.Objects;
  * Класс сущности со свойством <b>id</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public abstract class Entity {
 

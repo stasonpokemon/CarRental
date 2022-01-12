@@ -10,7 +10,7 @@ import java.util.Properties;
  * Util класс для подключения property файла с информауией для соединения с базой данных, со свойствами<b>properties</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class JDBCPropertyLoader {
     /**

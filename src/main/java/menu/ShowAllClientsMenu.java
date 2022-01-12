@@ -12,7 +12,7 @@ import java.util.List;
  * Класс меню, который выводит в консоль список всех клиентов, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class ShowAllClientsMenu implements Menu {
 

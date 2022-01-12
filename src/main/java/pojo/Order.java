@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
  * Класс заказа, наследуемый от класса {@link Entity}, со свойствами <b>price</b>, <b>state</b>, <b>date</b>, <b>time</b>, <b>car</b>, <b>client</b> и <b>refund</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class Order extends Entity {
     /**
@@ -70,9 +70,9 @@ public class Order extends Entity {
     }
 
     /**
-     * Процедура определения статуса заказа автомобил {@link Order#state}
+     * Процедура определения статуса заказа автомобиля {@link Order#state}
      *
-     * @param state - статус заказа автомобил
+     * @param state - статус заказа автомобиля
      */
     public void setState(String state) {
         this.state = state;
@@ -160,9 +160,9 @@ public class Order extends Entity {
     }
 
     /**
-     * Процедура определения объекта возрата автомобиля {@link Order#refund}
+     * Процедура определения объекта возврата автомобиля {@link Order#refund}
      *
-     * @param refund - объект возрата автомобиля
+     * @param refund - объект возврата автомобиля
      */
     public void setRefund(Refund refund) {
         this.refund = refund;

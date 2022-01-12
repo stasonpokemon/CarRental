@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * Класс главного меню приложения, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class AdminMenu implements Menu {
 

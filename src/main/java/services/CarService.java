@@ -11,7 +11,7 @@ import java.util.List;
  * Сервесный класс для автомобиля со свойствами <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class CarService {
 

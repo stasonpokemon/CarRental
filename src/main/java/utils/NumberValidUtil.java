@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Util класс для валидации числовых значений, со свойствами <b>scanner</b> и <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class NumberValidUtil {
 

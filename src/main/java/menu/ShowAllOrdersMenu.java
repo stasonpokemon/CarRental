@@ -12,7 +12,7 @@ import java.util.List;
  * Класс меню, который выводит в консоль список всех заказов, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class ShowAllOrdersMenu implements Menu {
 

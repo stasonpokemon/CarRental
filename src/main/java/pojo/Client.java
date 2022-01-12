@@ -4,11 +4,11 @@ package pojo;
  * Класс клиента наследуемый от класса {@link Entity}, со свойствами <b>name</b> и <b>address</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class Client extends Entity {
     /**
-     * Поле ФИО клиента
+     * Поле фио клиента
      */
     private String name;
     /**
@@ -19,16 +19,16 @@ public class Client extends Entity {
     /**
      * Функция получения значения поля {@link Client#name}
      *
-     * @return возвращает ФИО клиента
+     * @return возвращает фио клиента
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Процедура определения ФИО клиента {@link Client#name}
+     * Процедура определения фио клиента {@link Client#name}
      *
-     * @param name - ФИО клиента
+     * @param name - фио клиента
      */
     public void setName(String name) {
         this.name = name;
@@ -56,7 +56,7 @@ public class Client extends Entity {
      * Метод toString
      *
      * @return возвращает информацию об объекте клиента в виде строки
-     * */
+     */
     @Override
     public String toString() {
         return "Client{" +

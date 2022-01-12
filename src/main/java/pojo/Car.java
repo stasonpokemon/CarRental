@@ -4,7 +4,7 @@ package pojo;
  * Класс автомобиля наследуемый от класса {@link Entity}, со свойствами <b>name</b> и <b>state</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class Car extends Entity {
     /**

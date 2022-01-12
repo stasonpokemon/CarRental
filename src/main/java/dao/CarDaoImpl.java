@@ -1,9 +1,6 @@
 package dao;
 
 import pojo.Car;
-import pojo.Client;
-import pojo.Entity;
-import services.ClientService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO класс для конекта сущности {@link Car} c базой данных
+ * DAO класс для соединения сущности {@link Car} и базы данных
  * наследуемый от класса {@link BaseDaoImpl} и реализующий интерфейс {@link CarDao}
  * со свойствами <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class CarDaoImpl extends BaseDaoImpl implements CarDao {
     /**
@@ -29,6 +26,7 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
      * Статическая функция получения значения поля {@link CarDaoImpl#instance}
      *
      * @return возвращает экземпляр класса {@link CarDaoImpl}
+     * @throws SQLException
      */
     public static CarDaoImpl getInstance() throws SQLException {
         if (instance == null) {
@@ -39,15 +37,16 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
 
     /**
      * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     *
+     * @throws SQLException
      */
     private CarDaoImpl() throws SQLException {
     }
 
     /**
-     * Функция добавление нового клиента и получения его идентификатора {@link Client#getId()}
+     * Функция получения максимального значения id в таблице cars
      *
-     * @param client - объект добавляемого клиента
-     * @return возвращает идентификатор добавляемого клиента
+     * @return возвращает максимальное значение id
      */
     @Override
     public int getMaxCarId() {
@@ -67,6 +66,11 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
         return id;
     }
 
+    /**
+     * Функция получения всех автомобилей из таблицы cars
+     *
+     * @return возвращает коллекцию автомобилей
+     */
     @Override
     public List<Car> readAll() {
         String sql = "SELECT id, name, state FROM cars";
@@ -90,6 +94,11 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
         return cars;
     }
 
+    /**
+     * Функция создания(добавления) нового автомобиля в таблицу cars
+     *
+     * @return возвращает id созданного автомобиля
+     */
     @Override
     public Integer create(Car car) {
         String sql = "INSERT INTO cars (id, name, state) VALUES (?, ?, ?)";
@@ -105,5 +114,4 @@ public class CarDaoImpl extends BaseDaoImpl implements CarDao {
         }
         return car.getId();
     }
-
 }

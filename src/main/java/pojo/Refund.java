@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
  * Класс возврата, наследуемый от класса {@link Entity}, со свойствами <b>state</b>, <b>detail</b> и <b>price</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class Refund extends Entity {
     /**
@@ -15,7 +15,7 @@ public class Refund extends Entity {
     @Expose(serialize = true)
     private String state;
     /**
-     * Поле описания повеждённых деталей автомобиля
+     * Поле описания повреждённых деталей автомобиля
      */
     @Expose(serialize = true)
     private String detail;
@@ -46,16 +46,16 @@ public class Refund extends Entity {
     /**
      * Функция получения значения поля {@link Refund#detail}
      *
-     * @return возвращает строку повеждённых деталей автомобиля
+     * @return возвращает строку повреждённых деталей автомобиля
      */
     public String getDetail() {
         return detail;
     }
 
     /**
-     * Процедура определения повеждённых деталей автомобиля {@link Refund#detail}
+     * Процедура определения повреждённых деталей автомобиля {@link Refund#detail}
      *
-     * @param detail - строка повеждённых деталей автомобиля
+     * @param detail - строка повреждённых деталей автомобиля
      */
     public void setDetail(String detail) {
         this.detail = detail;

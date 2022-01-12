@@ -15,19 +15,48 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DAO класс для соединения сущности {@link Order} и базы данных
+ * наследуемый от класса {@link BaseDaoImpl} и реализующий интерфейс {@link OrderDao}
+ * со свойствами <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Станислав Требников
+ */
 public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
-    private static OrderDaoImpl orderDao;
+    /**
+     * Статическое поле DAO класса {@link OrderDaoImpl} для реализации Singleton
+     */
+    private static OrderDaoImpl instance;
 
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     *
+     * @throws SQLException
+     */
     public OrderDaoImpl() throws SQLException {
     }
 
+    /**
+     * Статическая функция получения значения поля {@link OrderDaoImpl#instance}
+     *
+     * @return возвращает экземпляр класса {@link OrderDaoImpl}
+     * @throws SQLException
+     */
     public static OrderDaoImpl getInstance() throws SQLException {
-        if (orderDao == null) {
-                orderDao = new OrderDaoImpl();
-            }
-        return orderDao;
+        if (instance == null) {
+            instance = new OrderDaoImpl();
+        }
+        return instance;
     }
 
+    /**
+     * Функция создания(добавления) нового заказа в таблицу orders
+     *
+     * @return возвращает id созданного заказа
+     * @throws NoConnectionJDBCException
+     * @throws SQLException
+     */
     @Override
     public Integer create(Order order) throws NoConnectionJDBCException, SQLException {
         String sql = "INSERT INTO orders (id, price, state, date, time, car_id, client_id) " +
@@ -50,7 +79,6 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
             } else {
                 statement.setInt(6, order.getCar().getId());
             }
-
             if (order.getClient().getId() == null) {
                 Client newClient = new Client();
                 newClient.setName(order.getClient().getName());
@@ -68,6 +96,13 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return order.getId();
     }
 
+    /**
+     * Функция создания(добавления) нового заказа(из json) в таблицу orders, который включает в себя возврат автомобиля
+     *
+     * @return возвращает id созданного заказа
+     * @throws NoConnectionJDBCException
+     * @throws SQLException
+     */
     @Override
     public Integer createWithRefund(Order order) throws NoConnectionJDBCException {
         String sql = "INSERT INTO orders (id, price, state, date, time, car_id, client_id, refund_id) " +
@@ -120,6 +155,11 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return order.getId();
     }
 
+    /**
+     * Функция получения всех заказов из таблицы orders
+     *
+     * @return возвращает коллекцию заказов
+     */
     @Override
     public List<Order> readAll() {
         String sqlOrder = "SELECT id, price, state, date, time, car_id, client_id, refund_id FROM orders";
@@ -206,9 +246,11 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return orders;
     }
 
-    /*
-     * Список одобренных заказов без возврата
-     * */
+    /**
+     * Функция получения одобренных заказов без возврата из таблицы orders
+     *
+     * @return возвращает коллекцию заказов
+     */
     @Override
     public List<Order> readApprovedOrdersWithoutRefund() {
         String sqlOrder = "SELECT id, price, state, date, time, car_id, client_id, refund_id FROM orders WHERE state LIKE 'Approved' AND refund_id IS NULL";
@@ -276,6 +318,10 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         return orders;
     }
 
+    /**
+     * Функция обновления состояния заказа
+     * @param order заказ, у которого нужно обновить состояние
+     */
     @Override
     public void update(Order order) {
         String sql = "UPDATE orders SET  price = ?, state = ?, date = ?, time = ?, car_id = ?, client_id = ?, refund_id = ?  WHERE id = ?";
@@ -296,6 +342,11 @@ public class OrderDaoImpl extends BaseDaoImpl implements OrderDao {
         }
     }
 
+    /**
+     * Функция получения максимального значения id в таблице orders
+     *
+     * @return возвращает максимальное значение id
+     */
     @Override
     public Integer getMaxOrderId() {
         String sql = "SELECT MAX(id) as 'max' FROM orders";

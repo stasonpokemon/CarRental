@@ -10,7 +10,7 @@ import java.util.Properties;
  * Util класс для подключения property файлов с информауией для интернационализации, со свойствами<b>properties</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class LanguagePropertyLoader {
     /**
@@ -29,7 +29,7 @@ public class LanguagePropertyLoader {
     /**
      * Функция загрузки properties файла с английским языком
      *
-     * @throws IOException - возникает при ошибки загрузки файла
+     * @throws IOException - возникает при ошибке загрузки файла
      */
     public static void selectEnglishLanguageProperty() {
         try {

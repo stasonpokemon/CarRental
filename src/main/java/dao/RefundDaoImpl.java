@@ -5,22 +5,48 @@ import pojo.Refund;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
+/**
+ * DAO класс для соединения сущности {@link Refund} и базы данных
+ * наследуемый от класса {@link BaseDaoImpl} и реализующий интерфейс {@link RefundDao}
+ * со свойствами <b>instance</b>.
+ *
+ * @version 1.1
+ * @autor Станислав Требников
+ */
 public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
 
-    private static RefundDaoImpl refundDao;
+    /**
+     * Статическое поле DAO класса {@link RefundDaoImpl} для реализации Singleton
+     */
+    private static RefundDaoImpl instance;
 
+    /**
+     * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
+     *
+     * @throws SQLException
+     */
     private RefundDaoImpl() throws SQLException {
     }
 
+    /**
+     * Статическая функция получения значения поля {@link RefundDaoImpl#instance}
+     *
+     * @return возвращает экземпляр класса {@link RefundDaoImpl}
+     * @throws SQLException
+     */
     public static RefundDaoImpl getInstance() throws SQLException {
-        if (refundDao == null) {
-                refundDao = new RefundDaoImpl();
+        if (instance == null) {
+            instance = new RefundDaoImpl();
         }
-        return refundDao;
+        return instance;
     }
 
+    /**
+     * Функция создания(добавления) нового возврата в таблицу refunds
+     *
+     * @return возвращает id созданного возврата
+     */
     @Override
     public Integer create(Refund refund) {
         String sql = "INSERT INTO refunds (id, state, price, detail)  VALUES(?, ?, ?, ?)";
@@ -38,11 +64,16 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
         return null;
     }
 
+    /**
+     * Функция получения максимального значения id в таблице refund
+     *
+     * @return возвращает максимальное значение id
+     */
     @Override
     public int getMaxRefundId() {
         String sql = "SELECT MAX(id) as 'max' FROM refunds";
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+        PreparedStatement statement;
+        ResultSet resultSet;
         int id = 0;
         try {
             statement = connection.prepareStatement(sql);
@@ -55,11 +86,6 @@ public class RefundDaoImpl extends BaseDaoImpl implements RefundDao {
         }
         return id;
     }
-
-
-
-
-
 
 
 }

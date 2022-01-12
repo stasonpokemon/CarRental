@@ -15,7 +15,7 @@ import java.util.Scanner;
  * Класс меню, который позволяет реализовать регистрацию возврата автомобиля, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class RefundRegistrationMenu implements Menu {
 

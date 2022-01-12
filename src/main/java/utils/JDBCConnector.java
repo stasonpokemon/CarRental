@@ -1,16 +1,15 @@
 package utils;
 
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Util класс для соединения с базой данных <b>instance</b>.
+ * Util класс для соединения с базой данных, со свойствами <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class JDBCConnector {
 
@@ -23,6 +22,7 @@ public class JDBCConnector {
      * Статическая функция получения значения поля {@link JDBCConnector#instance}
      *
      * @return возвращает экземпляр класса {@link JDBCConnector}
+     * @throws SQLException
      */
     public static JDBCConnector getInstance() throws SQLException {
         if (instance == null) {
@@ -39,8 +39,7 @@ public class JDBCConnector {
     /**
      * Приватный конструктор - создание нового объекта в единственном экземпляре при помощи Singleton
      *
-     * @return возвращает экземпляр класса {@link JDBCConnector}
-     * @throws SQLException - при неправильном поключении к бд
+     * @throws SQLException - при неправильном подключении к бд
      */
     private JDBCConnector() throws SQLException {
         // Регистрируем драйвер, с которым будем работать

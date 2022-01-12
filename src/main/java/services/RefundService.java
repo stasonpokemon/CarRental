@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Сервесный класс для возврата автомобиля со свойствами <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class RefundService {
 
@@ -42,7 +42,7 @@ public class RefundService {
      *
      * @param refund - объект добавляемого возврата автомобиля
      * @return возвращает идентификатор добавляемого возврата автомобиля
-     * @throws SQLException - при неправильном поключении к бд
+     * @throws SQLException - при неправильном подключении к бд
      */
     public Integer addNewRefund(Refund refund) {
         try {

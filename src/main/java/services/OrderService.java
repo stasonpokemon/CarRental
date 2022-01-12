@@ -12,7 +12,7 @@ import java.util.List;
  * Сервесный класс для заказа со свойствами <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class OrderService {
     /**
@@ -98,7 +98,7 @@ public class OrderService {
      * Функция обновления заказа
      *
      * @param order - объект обновляемого заказа
-     * @throws SQLException - при неправильном поключении к бд
+     * @throws SQLException - при неправильном подключении к бд
      */
     public void update(Order order) {
         try {

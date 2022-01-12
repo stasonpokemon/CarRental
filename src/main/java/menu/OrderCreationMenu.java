@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * Класс меню, который позволяет реализовать создание заказа, реализующий интерфейс {@link Menu}, со свойствами <b>operationNumber</b> и <b>instance</b>.
  *
  * @version 1.1
- * @autor Stanislav Trebnikov
+ * @autor Станислав Требников
  */
 public class OrderCreationMenu implements Menu {
 
@@ -58,7 +58,7 @@ public class OrderCreationMenu implements Menu {
     }
 
     /**
-     * Функция вызова меню, которая  позволяет реализовать создание заказа
+     * Функция вызова меню, которая позволяет реализовать создание заказа
      */
     @Override
     public void getMenu() {
@@ -118,7 +118,7 @@ public class OrderCreationMenu implements Menu {
                         car.setState("WITHOUT_DAMAGE");
                         CarService.getInstance().addNewCar(car);
 
- //                        Метод, который проверяет, есть ли клиент с введёнными данными в бд. Если такой клиент имеется, то мы не создаём новый объект клиента
+                        //                        Метод, который проверяет, есть ли клиент с введёнными данными в бд. Если такой клиент имеется, то мы не создаём новый объект клиента
                         client = searchClientInDb(clientName, clientAddress);
 
                         order.setState("Declined");
@@ -143,8 +143,10 @@ public class OrderCreationMenu implements Menu {
 
     /**
      * Метод, который проверяет, есть ли клиент с введёнными данными в бд. Если такой клиент имеется, то мы не создаём новый объект клиента
-     * @param clientName - имя клиента
+     *
+     * @param clientName    - имя клиента
      * @param clientAddress - адрес клиента
+     * @return возвращает либо клиента из бд, либо нового
      * @throws NoConnectionJDBCException
      * @see NoConnectionJDBCException
      */
